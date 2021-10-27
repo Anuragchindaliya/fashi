@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-const Header = ()=> {
+const Header = ({categories:cat})=> {
+    const {data: categories} =cat;
     return (
         <div>
             {/* Page Preloder */}
@@ -13,11 +14,11 @@ const Header = ()=> {
                         <div className="ht-left">
                             <div className="mail-service">
                                 <i className=" fa fa-envelope" />
-                                hello.colorlib@gmail.com
+                                web2rise@gmail.com
                             </div>
                             <div className="phone-service">
                                 <i className=" fa fa-phone" />
-                                +65 11.188.888
+                                +91 8010334416
                             </div>
                         </div>
                         <div className="ht-right">
@@ -42,9 +43,9 @@ const Header = ()=> {
                         <div className="row">
                             <div className="col-lg-2 col-md-2">
                                 <div className="logo">
-                                    <a href="./index.html">
+                                    <Link to="/user/abc">
                                         <img src="./assets/img/logo.png" alt="" />
-                                    </a>
+                                    </Link>
                                 </div>
                             </div>
                             <div className="col-lg-7 col-md-7">
@@ -121,14 +122,10 @@ const Header = ()=> {
                                 <i className="ti-menu" />
                                 <span>All departments</span>
                                 <ul className="depart-hover">
-                                    <li className="active"><a href="/#">Women’s Clothing</a></li>
-                                    <li><a href="/#">Men’s Clothing</a></li>
-                                    <li><a href="/#">Underwear</a></li>
-                                    <li><a href="/#">Kid's Clothing</a></li>
-                                    <li><a href="/#">Brand Fashion</a></li>
-                                    <li><a href="/#">Accessories/Shoes</a></li>
-                                    <li><a href="/#">Luxury Brands</a></li>
-                                    <li><a href="/#">Brand Outdoor Apparel</a></li>
+                                    {
+                                        categories.length>0 &&
+                                        categories.filter(cat=>cat.parent===0).map(item=><li><Link to={'/shop'}>{item.name}</Link></li>)
+                                    }
                                 </ul>
                             </div>
                         </div>

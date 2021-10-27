@@ -816,7 +816,7 @@ ol {
 -----------------------*/
 
 .hero-items .single-hero-items {
-	height: 725px;
+	height: 625px;
 	padding-top: 210px;
 }
 
@@ -2191,6 +2191,14 @@ ol {
 	color: #636363;
 }
 
+.product-details .pd-desc h1{
+	font-size: 28px;
+}
+
+.product-details .pd-desc h2{
+	font-size: 18px;
+}
+
 .product-details .pd-desc h4 {
 	color: #e7ab3c;
 	font-weight: 700;
@@ -2415,6 +2423,14 @@ ol {
 
 .product-content {
 	padding-top: 40px;
+}
+
+.product-content h1 {
+	font-size: 28px;
+}
+
+.product-content h2 {
+	font-size: 18px;
 }
 
 .product-content h5 {
@@ -4319,3 +4335,6 @@ ol {
 		padding-right: 15px;
 	}
 }
+/* .disabled{
+	display: none;
+} */

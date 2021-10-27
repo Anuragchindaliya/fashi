@@ -6,15 +6,12 @@ const Products = () => {
 
     useEffect(() => {
         axios.get('https://ciostik.com/wp-json/wc/store/products').then((response) => {
-
-            // console.log(response.data);
             const myProducts = response.data;
             setProduct(myProducts);
 
 
         });
     }, []);
-    console.log(product);
     return (
         <>
             <div className="col-lg-9 order-1 order-lg-2">
@@ -42,7 +39,7 @@ const Products = () => {
                                 <div key={index} className="col-lg-4 col-sm-6">
                                     <div className="product-item">
                                         <div className="pi-pic">
-                                            <img src={el.images[0].src} alt="" />
+                                            <img src={el.images.length>0 && el.images[0].src} alt="" />
                                             {el.on_sale && <div className="sale pp-sale">Sale</div>}
                                             {/* <div className="sale pp-sale">Dynamic Sale</div> */}
                                             <div className="icon">
@@ -70,235 +67,6 @@ const Products = () => {
                                 </div>
                             );
                         })}
-
-                        <div className="col-lg-4 col-sm-6">
-                            <div className="product-item">
-                                <div className="pi-pic">
-                                    <img src="./assets/img/products/product-1.jpg" alt="" />
-                                    <div className="sale pp-sale">Static Sale</div>
-                                    <div className="icon">
-                                        <i className="icon_heart_alt" />
-                                    </div>
-                                    <ul>
-                                        <li className="w-icon active"><a href="/#"><i className="icon_bag_alt" /></a></li>
-                                        <li className="quick-view"><a href="/#">+ Quick View</a></li>
-                                        <li className="w-icon"><a href="/#"><i className="fa fa-random" /></a></li>
-                                    </ul>
-                                </div>
-                                <div className="pi-text">
-                                    <div className="catagory-name">Towel</div>
-                                    <a href="/#">
-                                        <h5>Pure Pineapple</h5>
-                                    </a>
-                                    <div className="product-price">
-                                        $14.00
-                                        <span>$35.00</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-lg-4 col-sm-6">
-                            <div className="product-item">
-                                <div className="pi-pic">
-                                    <img src="./assets/img/products/product-2.jpg" alt="" />
-                                    <div className="icon">
-                                        <i className="icon_heart_alt" />
-                                    </div>
-                                    <ul>
-                                        <li className="w-icon active"><a href="/#"><i className="icon_bag_alt" /></a></li>
-                                        <li className="quick-view"><a href="/#">+ Quick View</a></li>
-                                        <li className="w-icon"><a href="/#"><i className="fa fa-random" /></a></li>
-                                    </ul>
-                                </div>
-                                <div className="pi-text">
-                                    <div className="catagory-name">Coat</div>
-                                    <a href="/#">
-                                        <h5>Guangzhou sweater</h5>
-                                    </a>
-                                    <div className="product-price">
-                                        $13.00
-                                        <span>$35.00</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-lg-4 col-sm-6">
-                            <div className="product-item">
-                                <div className="pi-pic">
-                                    <img src="./assets/img/products/product-3.jpg" alt="" />
-                                    <div className="icon">
-                                        <i className="icon_heart_alt" />
-                                    </div>
-                                    <ul>
-                                        <li className="w-icon active"><a href="/#"><i className="icon_bag_alt" /></a></li>
-                                        <li className="quick-view"><a href="/#">+ Quick View</a></li>
-                                        <li className="w-icon"><a href="/#"><i className="fa fa-random" /></a></li>
-                                    </ul>
-                                </div>
-                                <div className="pi-text">
-                                    <div className="catagory-name">Shoes</div>
-                                    <a href="/#">
-                                        <h5>Guangzhou sweater</h5>
-                                    </a>
-                                    <div className="product-price">
-                                        $34.00
-                                        <span>$35.00</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-lg-4 col-sm-6">
-                            <div className="product-item">
-                                <div className="pi-pic">
-                                    <img src="./assets/img/products/product-4.jpg" alt="" />
-                                    <div className="icon">
-                                        <i className="icon_heart_alt" />
-                                    </div>
-                                    <ul>
-                                        <li className="w-icon active"><a href="/#"><i className="icon_bag_alt" /></a></li>
-                                        <li className="quick-view"><a href="/#">+ Quick View</a></li>
-                                        <li className="w-icon"><a href="/#"><i className="fa fa-random" /></a></li>
-                                    </ul>
-                                </div>
-                                <div className="pi-text">
-                                    <div className="catagory-name">Coat</div>
-                                    <a href="/#">
-                                        <h5>Microfiber Wool Scarf</h5>
-                                    </a>
-                                    <div className="product-price">
-                                        $64.00
-                                        <span>$35.00</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-lg-4 col-sm-6">
-                            <div className="product-item">
-                                <div className="pi-pic">
-                                    <img src="./assets/img/products/product-5.jpg" alt="" />
-                                    <div className="icon">
-                                        <i className="icon_heart_alt" />
-                                    </div>
-                                    <ul>
-                                        <li className="w-icon active"><a href="/#"><i className="icon_bag_alt" /></a></li>
-                                        <li className="quick-view"><a href="/#">+ Quick View</a></li>
-                                        <li className="w-icon"><a href="/#"><i className="fa fa-random" /></a></li>
-                                    </ul>
-                                </div>
-                                <div className="pi-text">
-                                    <div className="catagory-name">Shoes</div>
-                                    <a href="/#">
-                                        <h5>Men's Painted Hat</h5>
-                                    </a>
-                                    <div className="product-price">
-                                        $44.00
-                                        <span>$35.00</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-lg-4 col-sm-6">
-                            <div className="product-item">
-                                <div className="pi-pic">
-                                    <img src="./assets/img/products/product-6.jpg" alt="" />
-                                    <div className="icon">
-                                        <i className="icon_heart_alt" />
-                                    </div>
-                                    <ul>
-                                        <li className="w-icon active"><a href="/#"><i className="icon_bag_alt" /></a></li>
-                                        <li className="quick-view"><a href="/#">+ Quick View</a></li>
-                                        <li className="w-icon"><a href="/#"><i className="fa fa-random" /></a></li>
-                                    </ul>
-                                </div>
-                                <div className="pi-text">
-                                    <div className="catagory-name">Shoes</div>
-                                    <a href="/#">
-                                        <h5>Converse Shoes</h5>
-                                    </a>
-                                    <div className="product-price">
-                                        $34.00
-                                        <span>$35.00</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-lg-4 col-sm-6">
-                            <div className="product-item">
-                                <div className="pi-pic">
-                                    <img src="./assets/img/products/product-7.jpg" alt="" />
-                                    <div className="sale pp-sale">Sale</div>
-                                    <div className="icon">
-                                        <i className="icon_heart_alt" />
-                                    </div>
-                                    <ul>
-                                        <li className="w-icon active"><a href="/#"><i className="icon_bag_alt" /></a></li>
-                                        <li className="quick-view"><a href="/#">+ Quick View</a></li>
-                                        <li className="w-icon"><a href="/#"><i className="fa fa-random" /></a></li>
-                                    </ul>
-                                </div>
-                                <div className="pi-text">
-                                    <div className="catagory-name">Towel</div>
-                                    <a href="/#">
-                                        <h5>Pure Pineapple</h5>
-                                    </a>
-                                    <div className="product-price">
-                                        $64.00
-                                        <span>$35.00</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-lg-4 col-sm-6">
-                            <div className="product-item">
-                                <div className="pi-pic">
-                                    <img src="./assets/img/products/product-8.jpg" alt="" />
-                                    <div className="icon">
-                                        <i className="icon_heart_alt" />
-                                    </div>
-                                    <ul>
-                                        <li className="w-icon active"><a href="/#"><i className="icon_bag_alt" /></a></li>
-                                        <li className="quick-view"><a href="/#">+ Quick View</a></li>
-                                        <li className="w-icon"><a href="/#"><i className="fa fa-random" /></a></li>
-                                    </ul>
-                                </div>
-                                <div className="pi-text">
-                                    <div className="catagory-name">Coat</div>
-                                    <a href="/#">
-                                        <h5>2 Layer Windbreaker</h5>
-                                    </a>
-                                    <div className="product-price">
-                                        $44.00
-                                        <span>$35.00</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-lg-4 col-sm-6">
-                            <div className="product-item">
-                                <div className="pi-pic">
-                                    <img src="./assets/img
-/products/product-9.jpg" alt="" />
-                                    <div className="icon">
-                                        <i className="icon_heart_alt" />
-                                    </div>
-                                    <ul>
-                                        <li className="w-icon active"><a href="/#"><i className="icon_bag_alt" /></a></li>
-                                        <li className="quick-view"><a href="/#">+ Quick View</a></li>
-                                        <li className="w-icon"><a href="/#"><i className="fa fa-random" /></a></li>
-                                    </ul>
-                                </div>
-                                <div className="pi-text">
-                                    <div className="catagory-name">Shoes</div>
-                                    <a href="/#">
-                                        <h5>Converse Shoes</h5>
-                                    </a>
-                                    <div className="product-price">
-                                        $34.00
-                                        <span>$35.00</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
                 <div className="loading-more">

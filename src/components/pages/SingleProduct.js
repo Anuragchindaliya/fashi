@@ -1,14 +1,18 @@
-import {useState} from 'react'
+import {useState} from 'react';
+import parse from 'html-react-parser';
 import { useLocation } from "react-router-dom"
 import OwlCarousel from "react-owl-carousel";
-import "owl.carousel/dist/assets/owl.carousel.css";
-import "owl.carousel/dist/assets/owl.theme.default.css";
 import RecentProducts from "../common/recentProducts";
 
 const SingleProducts = () => {
     const location = useLocation();
     const data = location.state;
-    const [enlargeImage, setEnlargedImage] = useState(data.images[0])
+    const [enlargeImage, setEnlargedImage] = useState(data.images[0]);
+    const [startPosition, setStartPosition] = useState(0);
+    const handleEnlargedImage = (img, index) =>{
+      setEnlargedImage(img);
+      setStartPosition(index-1);
+    }
   return (
     <>
       <section className="product-shop spad page-details">
@@ -20,57 +24,33 @@ const SingleProducts = () => {
                   <div className="product-pic-zoom">
                     <img
                       className="product-big-img"
-                      src={enlargeImage.src}
-                      alt={enlargeImage.alt}
+                      src={enlargeImage && enlargeImage.src}
+                      alt={enlargeImage && enlargeImage.alt}
                     />
                     <div className="zoom-icon">
                       <i className="fa fa-search-plus" />
                     </div>
                   </div>
-                  {/* <div className="product-thumbs">
-                    <div className="product-thumbs-track ps-slider owl-carousel">
-                      <div
-                        className="pt active"
-                        data-imgbigurl="./assets/img/product-single/product-1.jpg"
-                      >
-                        <img src="./assets/img/product-single/product-1.jpg" alt="" />
-                      </div>
-                      <div
-                        className="pt"
-                        data-imgbigurl="./assets/img/product-single/product-2.jpg"
-                      >
-                        <img src="./assets/img/product-single/product-2.jpg" alt="" />
-                      </div>
-                      <div
-                        className="pt"
-                        data-imgbigurl="./assets/img/product-single/product-3.jpg"
-                      >
-                        <img src="./assets/img/product-single/product-3.jpg" alt="" />
-                      </div>
-                      <div
-                        className="pt"
-                        data-imgbigurl="./assets/img/product-single/product-3.jpg"
-                      >
-                        <img src="./assets/img/product-single/product-3.jpg" alt="" />
-                      </div>
-                    </div>
-                  </div> */}
-                  <OwlCarousel className="owl-theme" loop margin={10} nav>
+                  {
+                    data.images.length>1 &&
+                    <OwlCarousel className="owl-theme" margin={10} dots={false} dotsEach nav dragClass={'owl-drag ps-slider'} startPosition={startPosition}>
                       {
                           data.images.map((img,index)=>{
                                 return(
-                                <div key={index} className="item" onClick={()=>setEnlargedImage(img)}>
+                                <div key={index} className="item" onClick={()=>handleEnlargedImage(img, index)}>
                                     <img src={img.src} alt={img.alt} />
                                 </div>);
                           })
                       }
-                </OwlCarousel>
+                    </OwlCarousel>
+                  }
+                  
                 </div>
                 <div className="col-lg-6">
                   <div className="product-details">
                     <div className="pd-title">
-                      <span>oranges</span>
-                      <h3>Pure Pineapple</h3>
+                      <span>{data.categories[0].name}</span>
+                      <h3>{data.name}</h3>
                       <a href="/#" className="heart-icon">
                         <i className="icon_heart_alt" />
                       </a>
@@ -81,16 +61,15 @@ const SingleProducts = () => {
                       <i className="fa fa-star" />
                       <i className="fa fa-star" />
                       <i className="fa fa-star-o" />
-                      <span>(5)</span>
+                      <span>({data.review_count})</span>
                     </div>
                     <div className="pd-desc">
                       <p>
-                        Lorem ipsum dolor sit amet, consectetur ing elit, sed do
-                        eiusmod tempor sum dolor sit amet, consectetur
-                        adipisicing elit, sed do mod tempor
+                        {parse(data.short_description)}
                       </p>
                       <h4>
-                        $495.00 <span>629.99</span>
+                        {data.prices.currency_prefix}{data.prices.sale_price / 100}
+                        <span>{data.prices.currency_prefix}{data.prices.regular_price / 100}</span>
                       </h4>
                     </div>
                     <div className="pd-color">
@@ -138,11 +117,12 @@ const SingleProducts = () => {
                     </div>
                     <ul className="pd-tags">
                       <li>
-                        <span>CATEGORIES</span>: More Accessories, Wallets &amp;
-                        Cases
+                        <span>CATEGORIES</span>: {
+                          data.categories.map((obj,i) => `${obj.name} ${i===data.categories.length-1?'':','} `)
+                        }
                       </li>
                       <li>
-                        <span>TAGS</span>: Clothing, T-shirt, Woman
+                        <span>TAGS</span>: {data.tags.join(', ')}
                       </li>
                     </ul>
                     <div className="pd-share">
@@ -195,7 +175,10 @@ const SingleProducts = () => {
                       role="tabpanel"
                     >
                       <div className="product-content">
-                        <div className="row">
+                        {
+                          parse(data.description)
+                        }
+                        {/* <div className="row">
                           <div className="col-lg-7">
                             <h5>Introduction</h5>
                             <p>
@@ -219,7 +202,7 @@ const SingleProducts = () => {
                           <div className="col-lg-5">
                             <img src="./assets/img/product-single/tab-desc.jpg" alt="" />
                           </div>
-                        </div>
+                        </div> */}
                       </div>
                     </div>
                     <div className="tab-pane fade" id="tab-2" role="tabpanel">

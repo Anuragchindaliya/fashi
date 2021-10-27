@@ -1,7 +1,10 @@
+import {useParams} from "react-router-dom";
 import Products from "../common/products";
 import Sidebar from "../sidebar";
 
 function Shop(){
+  const {catId} = useParams();
+  console.log(catId);
     return(
         <>
             {/* Product Shop Section Begin */}
