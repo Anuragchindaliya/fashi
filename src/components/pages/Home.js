@@ -1,13 +1,11 @@
-import CounterSection from "./home/CounterSection";
-import HeroSlider from "./home/HeroSlider";
-import InstaProfile from "./home/InstaProfile";
-import HeroCards from "./home/HeroCards";
-import CategoriesSlider from "./home/CategoriesSlider";
+import CounterSection from "components/common/CounterSection";
+import HeroSlider from "components/common/HeroSlider";
+import InstaProfile from "components/common/InstaProfile";
+import HeroCards from "components/common/HeroCards";
+import CategoriesSlider from "components/common/CategoriesSlider";
 
 
 const Home = ({ products,categories:{data,loading,error} }) => {
-  console.log(data, loading, error);
-  
   return (  
     <>
       <HeroSlider />
@@ -17,13 +15,13 @@ const Home = ({ products,categories:{data,loading,error} }) => {
       {error.length>0 && <p>{error}</p>}
       {
         !loading && data && data.length>3 &&
-        <CategoriesSlider products={products} cats={[data[0], data[1], data[2], data[3]]} />
+        <CategoriesSlider products={products} cats={data.filter(c=>c.parent===0).slice(0,4)} />
       }
       <CounterSection />
       {loading&& <p>Loading...</p>}
       {
         !loading && data && data.length>6 &&
-        <CategoriesSlider products={products} right cats={[data[4], data[5], data[6]]}/>
+        <CategoriesSlider products={products} right cats={data.filter(c=>c.parent===0).slice(4,7)}/>
       }
       
 

@@ -1,20 +1,30 @@
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
+import _ from 'lodash';
 import parse from 'html-react-parser';
-import { useLocation } from "react-router-dom"
+import { useParams } from "react-router-dom"
 import OwlCarousel from "react-owl-carousel";
 import RecentProducts from "../common/recentProducts";
 
-const SingleProducts = () => {
-    const location = useLocation();
-    const data = location.state;
-    const [enlargeImage, setEnlargedImage] = useState(data.images[0]);
-    const [startPosition, setStartPosition] = useState(0);
+const SingleProducts = ({products:{data:allData}}) => {
+  const {slug} = useParams();
+  const [data, setData] = useState({});
+  const [enlargeImage, setEnlargedImage] = useState(!_.isEmpty(data) ? data.images[0] : {src:'',alt:''});
+  const [startPosition, setStartPosition] = useState(0);
+
+  useEffect(()=>{
+    if(allData.length>0){
+      setData(allData.find(pr=>((new URL(pr.permalink)).pathname===`/product/${slug}/`)));
+      setEnlargedImage(allData.find(pr=>((new URL(pr.permalink)).pathname===`/product/${slug}/`)).images[0]);
+    }
+  },[allData]);
+
     const handleEnlargedImage = (img, index) =>{
       setEnlargedImage(img);
       setStartPosition(index-1);
     }
   return (
-    <>
+    <>{
+      !_.isEmpty(data) &&
       <section className="product-shop spad page-details">
         <div className="container">
           <div className="row">
@@ -24,23 +34,23 @@ const SingleProducts = () => {
                   <div className="product-pic-zoom">
                     <img
                       className="product-big-img"
-                      src={enlargeImage && enlargeImage.src}
-                      alt={enlargeImage && enlargeImage.alt}
+                      src={enlargeImage.src}
+                      alt={enlargeImage.alt}
                     />
                     <div className="zoom-icon">
                       <i className="fa fa-search-plus" />
                     </div>
                   </div>
                   {
-                    data.images.length>1 &&
+                    !_.isEmpty(data) && data.images.length>1 &&
                     <OwlCarousel className="owl-theme" margin={10} dots={false} dotsEach nav dragClass={'owl-drag ps-slider'} startPosition={startPosition}>
                       {
-                          data.images.map((img,index)=>{
-                                return(
-                                <div key={index} className="item" onClick={()=>handleEnlargedImage(img, index)}>
-                                    <img src={img.src} alt={img.alt} />
-                                </div>);
-                          })
+                        data.images.map((img,index)=>{
+                              return(
+                              <div key={index} className="item" onClick={()=>handleEnlargedImage(img, index)}>
+                                  <img src={img.src} alt={img.alt} />
+                              </div>);
+                        })
                       }
                     </OwlCarousel>
                   }
@@ -357,6 +367,7 @@ const SingleProducts = () => {
           </div>
         </div>
       </section>
+      }
     </>
   );
 };

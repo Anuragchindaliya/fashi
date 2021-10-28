@@ -1,17 +1,17 @@
-import axios from "axios";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-const Products = () => {
-    const [product, setProduct] = useState([]);
-
-    useEffect(() => {
-        axios.get('https://ciostik.com/wp-json/wc/store/products').then((response) => {
-            const myProducts = response.data;
-            setProduct(myProducts);
-
-
+import ProductCard from "./card";
+const Products = ({ products: pr, catSlug }) => {
+    const { data: products } = pr;
+    const finalProducts = products.length > 0 ? catSlug ? products.filter(pr => {
+        var ans = false;
+        pr.categories.forEach(ele => {
+            if (ele.slug === catSlug) {
+                ans = true
+            }
         });
-    }, []);
+        return ans;
+    }) : products : [];
     return (
         <>
             <div className="col-lg-9 order-1 order-lg-2">
@@ -34,36 +34,10 @@ const Products = () => {
                 </div>
                 <div className="product-list">
                     <div className="row">
-                        {product.map((el, index) => {
+                        {finalProducts.map((el, index) => {
                             return (
                                 <div key={index} className="col-lg-4 col-sm-6">
-                                    <div className="product-item">
-                                        <div className="pi-pic">
-                                            <img src={el.images.length>0 && el.images[0].src} alt="" />
-                                            {el.on_sale && <div className="sale pp-sale">Sale</div>}
-                                            {/* <div className="sale pp-sale">Dynamic Sale</div> */}
-                                            <div className="icon">
-                                                <i className="icon_heart_alt" />
-                                            </div>
-                                            <ul>
-                                                <li className="w-icon active"><a href="/#"><i className="icon_bag_alt" /></a></li>
-                                                <li className="quick-view"><a href="/#">+ Quick View</a></li>
-                                                <li className="w-icon"><a href="/#"><i className="fa fa-random" /></a></li>
-                                            </ul>
-                                        </div>
-                                        <div className="pi-text">
-                                            <div className="catagory-name">{el.categories[0].name}</div>
-                                            
-                                                <Link to={{pathname: "/singleproduct",state:el}} >
-                                                    <h5>{el.name}</h5>
-                                                </Link>
-                                            
-                                            <div className="product-price">
-                                                {el.prices.currency_prefix}{el.prices.sale_price / 100}
-                                                <span>{el.prices.currency_prefix}{el.prices.regular_price / 100}</span>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <ProductCard product={el} />
                                 </div>
                             );
                         })}

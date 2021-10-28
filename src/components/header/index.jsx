@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 const Header = ({categories:cat})=> {
     const {data: categories} =cat;
     return (
@@ -43,9 +43,9 @@ const Header = ({categories:cat})=> {
                         <div className="row">
                             <div className="col-lg-2 col-md-2">
                                 <div className="logo">
-                                    <Link to="/user/abc">
-                                        <img src="./assets/img/logo.png" alt="" />
-                                    </Link>
+                                    <NavLink to="/">
+                                        <img src="/assets/img/logo.png" alt="" />
+                                    </NavLink>
                                 </div>
                             </div>
                             <div className="col-lg-7 col-md-7">
@@ -124,15 +124,15 @@ const Header = ({categories:cat})=> {
                                 <ul className="depart-hover">
                                     {
                                         categories.length>0 &&
-                                        categories.filter(cat=>cat.parent===0).map(item=><li><Link to={'/shop'}>{item.name}</Link></li>)
+                                        categories.filter(cat=>cat.parent===0).map(item=><li key={item.id}><NavLink to={`/category/${item.slug}`}>{item.name}</NavLink></li>)
                                     }
                                 </ul>
                             </div>
                         </div>
                         <nav className="nav-menu mobile-menu">
                             <ul>
-                                <li><Link to="/">Home</Link></li>
-                                <li><Link to="/shop">Shop</Link></li>
+                                <li><NavLink to="/">Home</NavLink></li>
+                                <li><NavLink to="/shop">Shop</NavLink></li>
                                 <li><a href="/#">Collection</a>
                                     <ul className="dropdown">
                                         <li><a href="/#">Men's</a></li>
