@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import OwlCarousel from "react-owl-carousel";
 import ProductCard from "./products/card";
+import parse from "html-react-parser";
 const CategoriesSlider = ({ products:{data, loading, error}, right, cats = [] }) => {
     const [index, setIndex] = useState(0);
     const [sliderProducts, setSliderProducts] = useState([]);
@@ -21,8 +22,8 @@ const CategoriesSlider = ({ products:{data, loading, error}, right, cats = [] })
         if (data.length > 0 && cats.length > 0) {
             handleCatClick(cats[0].id, 0);
         }
-    }, [data])
-
+    }, [data]);
+    
     return (
         <>
             {/* Women Banner Section Begin */}
@@ -53,7 +54,7 @@ const CategoriesSlider = ({ products:{data, loading, error}, right, cats = [] })
                                                     onClick={() => handleCatClick(item.id, i)}
                                                     key={item.id}
                                                     className={i === index ? 'active' : ''}>
-                                                    {item.name.toUpperCase()}
+                                                    {parse(item.name.toUpperCase())}
                                                 </li>);
                                         })
                                     }

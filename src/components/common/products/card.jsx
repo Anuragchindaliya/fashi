@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import parse from "html-react-parser";
 
 const ProductCard = ({ product: el }) => {
     return (
@@ -27,7 +28,8 @@ const ProductCard = ({ product: el }) => {
             </Link>
 
             <div className="product-price">
-                {el.prices.currency_prefix}{el.prices.sale_price / 100}
+                 {/* {parse(el.price_html)}  */}
+                {el.prices.currency_prefix}{el.prices.sale_price / 100} 
                 <span>{el.prices.currency_prefix}{el.prices.regular_price / 100}</span>
             </div>
         </div>

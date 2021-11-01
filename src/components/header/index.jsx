@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+import parse from "html-react-parser";
 const Header = ({categories:cat})=> {
     const {data: categories} =cat;
     return (
@@ -124,7 +125,7 @@ const Header = ({categories:cat})=> {
                                 <ul className="depart-hover">
                                     {
                                         categories.length>0 &&
-                                        categories.filter(cat=>cat.parent===0).map(item=><li key={item.id}><NavLink to={`/category/${item.slug}`}>{item.name}</NavLink></li>)
+                                        categories.filter(cat=>cat.parent===0).map(item=><li key={item.id}><NavLink to={`/category/${item.slug}`}>{parse(item.name)}</NavLink></li>)
                                     }
                                 </ul>
                             </div>

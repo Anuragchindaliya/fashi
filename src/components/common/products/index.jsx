@@ -1,5 +1,3 @@
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import ProductCard from "./card";
 const Products = ({ products: pr, catSlug }) => {
     const { data: products } = pr;
