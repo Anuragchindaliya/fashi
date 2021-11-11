@@ -1,25 +1,25 @@
 import { categoriesTypes } from "types";
-const {CATEGORIES_FETCH,CATEGORIES_SUCCESS,CATEGORIES_ERROR,CATEGORIES_RESET} = categoriesTypes;
+const {FETCH,SUCCESS,ERROR,RESET} = categoriesTypes;
 
 export function categoriesFetch() {
     return {
-       type: CATEGORIES_FETCH
+       type: FETCH
     }
  }
 export function categoriesSuccess(val) {
     return {
-       type: CATEGORIES_SUCCESS,
+       type: SUCCESS,
        payload: val
     }
  }
 export function categoriesError(val) {
     return {
-       type: CATEGORIES_ERROR,
+       type: ERROR,
        payload: val
     }
  }
 export function categoriesReset() {
     return {
-       type: CATEGORIES_RESET
+       type: RESET
     }
  }

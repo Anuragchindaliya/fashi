@@ -1,8 +1,8 @@
 export const apiTypeCreator = (type) => {
     return {
-        [`${type}_FETCH`]:`${type}_FETCH`,
-        [`${type}_SUCCESS`]:`${type}_SUCCESS`,
-        [`${type}_ERROR`]:`${type}_ERROR`,
-        [`${type}_RESET`]:`${type}_RESET`
+        FETCH:`${type}_FETCH`,
+        SUCCESS:`${type}_SUCCESS`,
+        ERROR:`${type}_ERROR`,
+        RESET:`${type}_RESET`
     }
 }

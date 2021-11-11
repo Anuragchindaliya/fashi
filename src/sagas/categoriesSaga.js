@@ -13,5 +13,5 @@ function* fetchCategories() {
  }
 
 export default function* saga() {
-   yield takeEvery(categoriesTypes.CATEGORIES_FETCH, fetchCategories);
+   yield takeEvery(categoriesTypes.FETCH, fetchCategories);
 }
