@@ -28,8 +28,6 @@ function Shop({ products: { data: products }, categories }) {
           })
         : products
       : [];
-
-  console.log(categories);
   return (
     <>
       <section className="product-shop spad">

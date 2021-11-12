@@ -5,37 +5,81 @@ import { useParams } from "react-router-dom";
 import OwlCarousel from "react-owl-carousel";
 import RecentProducts from "../common/recentProducts";
 
-const SingleProducts = ({ products: { data: allData } }) => {
+const SingleProducts = (props) => {
+  const {
+    singleProduct: { data, loading, error },
+    singleProductFetch,
+    addToCart,
+    resetCart,
+    updateQty,
+    cart,
+  } = props;
   const { slug } = useParams();
-  const [data, setData] = useState({});
+  const [product, setProduct] = useState();
+  const [qty, setQty] = useState(1);
   const [enlargeImage, setEnlargedImage] = useState(
-    !_.isEmpty(data) ? data.images[0] : { src: "", alt: "" }
+    !_.isEmpty(product) ? product.images[0] : { src: "", alt: "" }
   );
   const [startPosition, setStartPosition] = useState(0);
 
+  const handleQtyChange = (event) => {
+    setQty(parseInt(event.target.value));
+  };
+
+  const increaseQty = () => {
+    qty < 100 && setQty(qty + 1);
+  };
+  const decreaseQty = () => {
+    qty > 0 && setQty(qty - 1);
+  };
+
   useEffect(() => {
-    if (allData.length > 0) {
-      setData(
-        allData.find(
-          (pr) => new URL(pr.permalink).pathname === `/product/${slug}/`
-        )
-      );
-      setEnlargedImage(
-        allData.find(
-          (pr) => new URL(pr.permalink).pathname === `/product/${slug}/`
-        ).images[0]
-      );
+    singleProductFetch(slug);
+  }, []);
+  useEffect(()=>{
+    var ele = document.querySelector('#prdDesc') || '';
+    if(ele.offsetHeight>200){
+      ele.style.maxHeight='200px';
+      ele.style.overflow='hidden';
+      
     }
-  }, [allData]);
+  })
+  useEffect(() => {
+    return () => {
+      console.log("unmounting singleProduct");
+      setProduct();
+      console.log(product);
+    };
+  }, []);
+
+  useEffect(() => {
+    setProduct(data[0]);
+    if (data.length > 0) {
+      setEnlargedImage(data[0].images[0]);
+    }
+  }, [data]);
 
   const handleEnlargedImage = (img, index) => {
     setEnlargedImage(img);
     setStartPosition(index - 1);
   };
+
+  const handleAddToCart = () => {
+    setQty(1);
+    addToCart({
+      product: { ...product, qty: 1 },
+      productId: product.id,
+    })
+  }
   return (
     <>
-      {!_.isEmpty(data) && (
-        <section className="product-shop spad page-details">
+      <section className="product-shop spad page-details">
+        {loading && (
+          <div id="preloder2">
+            <div className="loader" />
+          </div>
+        )}
+        {!loading && !_.isEmpty(product) && (
           <div className="container">
             <div className="row">
               <div className="col-lg-9">
@@ -51,7 +95,7 @@ const SingleProducts = ({ products: { data: allData } }) => {
                         <i className="fa fa-search-plus" />
                       </div>
                     </div>
-                    {!_.isEmpty(data) && data.images.length > 1 && (
+                    {!_.isEmpty(product) && product.images.length > 1 && (
                       <OwlCarousel
                         className="owl-theme"
                         margin={10}
@@ -60,8 +104,9 @@ const SingleProducts = ({ products: { data: allData } }) => {
                         nav
                         dragClass={"owl-drag ps-slider"}
                         startPosition={startPosition}
+                        key={product.id}
                       >
-                        {data.images.map((img, index) => {
+                        {product.images.map((img, index) => {
                           return (
                             <div
                               key={index}
@@ -78,8 +123,8 @@ const SingleProducts = ({ products: { data: allData } }) => {
                   <div className="col-lg-6">
                     <div className="product-details">
                       <div className="pd-title">
-                        <span>{data.categories[0].name}</span>
-                        <h3>{data.name}</h3>
+                        <span>{product.categories[0].name}</span>
+                        <h3>{product.name}</h3>
                         <a href="/#" className="heart-icon">
                           <i className="icon_heart_alt" />
                         </a>
@@ -90,17 +135,45 @@ const SingleProducts = ({ products: { data: allData } }) => {
                         <i className="fa fa-star" />
                         <i className="fa fa-star" />
                         <i className="fa fa-star-o" />
-                        <span>({data.review_count})</span>
+                        <span>({product.rating_count})</span>
                       </div>
-                      <div className="pd-desc">
-                        <p>{parse(data.short_description)}</p>
-                        <h4>
-                          {/* price */}
-                          {/* {data.sale_price} */}
-                          {/* <span>{data.regular_price}</span> */}
-                          {data.prices.currency_prefix}{data.prices.sale_price / 100}
-                          <span>{data.prices.currency_prefix}{data.prices.regular_price / 100}</span>
-                        </h4>
+                      <div className="quantity">
+                        {cart[product.id] && cart[product.id].qty > 0 && (
+                          <div className="pro-qty">
+                            <span className="left-minus" onClick={decreaseQty}>
+                              <i className="fa fa-minus"></i>
+                            </span>
+                            <input
+                              type="number"
+                              min="0"
+                              max="100"
+                              value={qty}
+                              onChange={handleQtyChange}
+                            />
+                            <span className="right-plus" onClick={increaseQty}>
+                              <i className="fa fa-plus"></i>
+                            </span>
+                          </div>
+                        )}
+                        {cart[product.id] && cart[product.id].qty > 0 ? (
+                          <b
+                            href="/#"
+                            className="primary-btn pd-cart"
+                            onClick={() =>
+                              updateQty({ qty: qty, productId: product.id })
+                            }
+                          >
+                            Update Cart
+                          </b>
+                        ) : (
+                          <b
+                            href="/#"
+                            className="primary-btn pd-cart"
+                            onClick={handleAddToCart}
+                          >
+                            Add To Cart
+                          </b>
+                        )}
                       </div>
                       <div className="pd-color">
                         <h6>Color</h6>
@@ -137,28 +210,34 @@ const SingleProducts = ({ products: { data: allData } }) => {
                           <label htmlFor="xl-size">xs</label>
                         </div>
                       </div>
-                      <div className="quantity">
-                        <div className="pro-qty">
-                          <input type="text" defaultValue={1} />
-                        </div>
-                        <a href="/#" className="primary-btn pd-cart">
-                          Add To Cart
-                        </a>
+                      <div className="pd-desc">
+                        <h4>
+                          <small>Price</small> : {parse(product.price_html)}
+                          {/* price */}
+                          {/* {data.sale_price} */}
+                          {/* <span>{data.regular_price}</span> */}
+                          {/* {product.prices.currency_prefix}{product.prices.sale_price / 100}
+                          <span>{product.prices.currency_prefix}{product.prices.regular_price / 100}</span> */}
+                        </h4>
+                        <div id='prdDesc'>{parse(product.short_description)}</div>
                       </div>
+
                       <ul className="pd-tags">
                         <li>
                           <span>CATEGORIES</span>:
-                          {data.categories.map(
+                          {product.categories.map(
                             (obj, i) =>
                               `${obj.name} ${
-                                i === data.categories.length - 1 ? "" : ","
+                                i === product.categories.length - 1 ? "" : ","
                               } `
                           )}
                         </li>
                         <li>
                           <span>TAGS</span>: {/* {data.tags.join(", ")} */}
-                          {data.tags.map((tag, i) => {
-                            return `${tag.name.toUpperCase()}${i !== data.tags.length - 1 ? ", " : ""}`;
+                          {product.tags.map((tag, i) => {
+                            return `${tag.name.toUpperCase()}${
+                              i !== product.tags.length - 1 ? ", " : ""
+                            }`;
                           })}
                         </li>
                       </ul>
@@ -212,32 +291,7 @@ const SingleProducts = ({ products: { data: allData } }) => {
                         role="tabpanel"
                       >
                         <div className="product-content">
-                          {parse(data.description)}
-                          {/* <div className="row">
-                          <div className="col-lg-7">
-                            <h5>Introduction</h5>
-                            <p>
-                              Lorem ipsum dolor sit amet, consectetur
-                              adipisicing elit, sed do eiusmod tempor incididunt
-                              ut labore et dolore magna aliqua. Ut enim ad minim
-                              veniam, quis nostrud exercitation ullamco laboris
-                              nisi ut aliquip ex ea commodo consequat. Duis aute
-                              irure dolor in{" "}
-                            </p>
-                            <h5>Features</h5>
-                            <p>
-                              Lorem ipsum dolor sit amet, consectetur
-                              adipisicing elit, sed do eiusmod tempor incididunt
-                              ut labore et dolore magna aliqua. Ut enim ad minim
-                              veniam, quis nostrud exercitation ullamco laboris
-                              nisi ut aliquip ex ea commodo consequat. Duis aute
-                              irure dolor in{" "}
-                            </p>
-                          </div>
-                          <div className="col-lg-5">
-                            <img src="./assets/img/product-single/tab-desc.jpg" alt="" />
-                          </div>
-                        </div> */}
+                          {parse(product.description)}
                         </div>
                       </div>
                       <div className="tab-pane fade" id="tab-2" role="tabpanel">
@@ -391,8 +445,8 @@ const SingleProducts = ({ products: { data: allData } }) => {
               <RecentProducts />
             </div>
           </div>
-        </section>
-      )}
+        )}
+      </section>
     </>
   );
 };

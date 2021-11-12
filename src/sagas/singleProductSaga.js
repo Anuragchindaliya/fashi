@@ -1,17 +1,18 @@
-import { call, put, takeEvery } from 'redux-saga/effects';
+import { call, put, takeEvery, select } from 'redux-saga/effects';
 import { productBySlug } from '../services/api';
 import { singleProductTypes } from 'types';
-import {productsSuccess, productsError} from '../actions/products.action';
+import {singleProductSuccess, singleProductError} from '../actions/singleProduct.action';
 
-function* fetchProducts() {
+function* fetchSingleProduct() {
+   const state = yield select();
    try {
-      const products = yield call(productBySlug);
-      yield put(productsSuccess(products));
+      const products = yield call(productBySlug,state.singleProduct.slug);
+      yield put(singleProductSuccess(products));
    } catch (e) {
-      yield put(productsError(e));
+      yield put(singleProductError(e));
    }
 }
 
 export default function* saga() {
-   yield takeEvery(singleProductTypes.FETCH, fetchProducts);
+   yield takeEvery(singleProductTypes.FETCH, fetchSingleProduct);
 }

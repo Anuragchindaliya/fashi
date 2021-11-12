@@ -1,13 +1,17 @@
 import { NavLink } from "react-router-dom";
+import _ from 'lodash';
 import parse from "html-react-parser";
-const Header = ({categories:cat})=> {
-    const {data: categories} =cat;
+const Header = ({ categories: cat, cart,updateQty }) => {
+    const { data: categories } = cat;
+    const keysArr = Object.keys(cart);
+    var totalPrice = 0;
+    console.log("total cart ", cart);
+    !_.isEmpty(cart) && keysArr.forEach((key) => {
+        totalPrice += parseInt(cart[key].price);
+    })
+    console.log(totalPrice);
     return (
         <div>
-            {/* Page Preloder */}
-            <div id="preloder">
-                <div className="loader" />
-            </div>
             {/* Header Section Begin */}
             <header className="header-section">
                 <div className="header-top">
@@ -67,47 +71,46 @@ const Header = ({categories:cat})=> {
                                     </li>
                                     <li className="cart-icon"><a href="/#">
                                         <i className="icon_bag_alt" />
-                                        <span>3</span>
+                                        <span>{keysArr.length}</span>
                                     </a>
                                         <div className="cart-hover">
-                                            <div className="select-items">
-                                                <table>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td className="si-pic"><img src="./assets/img/select-product-1.jpg" alt="" /></td>
-                                                            <td className="si-text">
-                                                                <div className="product-selected">
-                                                                    <p>$60.00 x 1</p>
-                                                                    <h6>Kabino Bedside Table</h6>
-                                                                </div>
-                                                            </td>
-                                                            <td className="si-close">
-                                                                <i className="ti-close" />
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td className="si-pic"><img src="./assets/img/select-product-2.jpg" alt="" /></td>
-                                                            <td className="si-text">
-                                                                <div className="product-selected">
-                                                                    <p>$60.00 x 1</p>
-                                                                    <h6>Kabino Bedside Table</h6>
-                                                                </div>
-                                                            </td>
-                                                            <td className="si-close">
-                                                                <i className="ti-close" />
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                            <div className="select-total">
-                                                <span>total:</span>
-                                                <h5>$120.00</h5>
-                                            </div>
-                                            <div className="select-button">
-                                                <a href="/#" className="primary-btn view-card">VIEW CARD</a>
-                                                <a href="/#" className="primary-btn checkout-btn">CHECK OUT</a>
-                                            </div>
+                                            {keysArr.length > 0 ? <div>
+                                                <div className="select-items">
+                                                    <table>
+                                                        <tbody>
+                                                            {
+                                                                keysArr.map((key) => {
+                                                                    const item = cart[key];
+                                                                    return (<tr key={key}>
+                                                                        <td className="si-pic" width="75px"><img src={item.images[0].src} alt="" /></td>
+                                                                        <td className="si-text">
+                                                                            <div className="product-selected">
+                                                                                <p>₹{item.price} Qty: {item.qty}</p>
+                                                                                <h6>{item.name}</h6>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td className="si-close">
+                                                                            <i className="ti-close" onClick={() =>
+                                                                                updateQty({ qty: 0, productId: item.id })
+                                                                            } />
+                                                                        </td>
+                                                                    </tr>)
+                                                                })
+                                                            }
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div className="select-total">
+                                                    <span>total:</span>
+                                                    <h5>₹{totalPrice}</h5>
+                                                </div>
+                                                <div className="select-button">
+                                                    <a href="/#" className="primary-btn view-card">VIEW CARD</a>
+                                                    <a href="/#" className="primary-btn checkout-btn">CHECK OUT</a>
+                                                </div>
+                                            </div> : <div>No Items Added</div>}
+
+                                            { }
                                         </div>
                                     </li>
                                     <li className="cart-price">$150.00</li>
@@ -124,8 +127,8 @@ const Header = ({categories:cat})=> {
                                 <span>All departments</span>
                                 <ul className="depart-hover">
                                     {
-                                        categories.length>0 &&
-                                        categories.filter(cat=>cat.parent===0).map(item=><li key={item.id}><NavLink to={`/category/${item.slug}`}>{parse(item.name)}</NavLink></li>)
+                                        categories.length > 0 &&
+                                        categories.filter(cat => cat.parent === 0).map(item => <li key={item.id}><NavLink to={`/category/${item.slug}`}>{parse(item.name)}</NavLink></li>)
                                     }
                                 </ul>
                             </div>

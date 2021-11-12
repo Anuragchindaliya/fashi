@@ -212,6 +212,16 @@ ol {
 	background: #000;
 }
 
+#preloder2 {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	z-index: 999999;
+	background: rgba(0,0,0,0.8);
+}
+
 .loader {
 	width: 40px;
 	height: 40px;
@@ -2070,6 +2080,7 @@ ol {
 
 .product-shop.page-details {
 	padding-bottom: 60px;
+	position: relative;
 }
 
 .product-pic-zoom {
@@ -2204,13 +2215,27 @@ ol {
 	font-weight: 700;
 }
 
-.product-details .pd-desc h4 span {
+/* .product-details .pd-desc h4 span {
 	font-size: 18px;
 	font-weight: 400;
 	color: #b7b7b7;
 	text-decoration: line-through;
 	display: inline-block;
 	margin-left: 13px;
+} */
+.product-details .pd-desc h4 del {
+	font-size: 18px;
+	font-weight: 400;
+	color: #b7b7b7;
+	text-decoration: line-through;
+	display: inline-block;
+	margin-left: 13px;
+}
+.product-details .pd-desc h4 del{
+	text-decoration: line-through;
+}
+.product-details .pd-desc h4 ins{
+	text-decoration: none;
 }
 
 .product-details .pd-color {
@@ -2296,15 +2321,38 @@ ol {
 	display: -ms-flexbox;
 	display: flex;
 	margin-bottom: 33px;
+	position: relative;
 }
 
 .product-details .quantity .pro-qty {
-	width: 123px;
+	/* width: 123px; */
 	height: 46px;
 	border: 2px solid #ebebeb;
-	padding: 0 15px;
+	padding: 0 45px;
 	float: left;
 	margin-right: 14px;
+	position: relative;
+}
+.pro-qty span{
+	position: absolute;
+}
+.pro-qty span.left-minus{
+	left:0;
+	display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30%;
+    height: 100%;
+	cursor: pointer;
+}
+.pro-qty span.right-plus{
+	right:0;
+	display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30%;
+    height: 100%;
+	cursor: pointer;
 }
 
 .product-details .quantity .pro-qty .qtybtn {
@@ -2331,8 +2379,21 @@ ol {
 	float: left;
 }
 
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
 .product-details .quantity .primary-btn.pd-cart {
-	padding: 14px 70px 10px;
+	padding: 14px 40px 10px;
+	cursor: pointer;
 }
 
 .product-details .pd-tags {
