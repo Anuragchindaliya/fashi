@@ -9,11 +9,10 @@ const SingleProducts = (props) => {
   const {
     singleProduct: { data, loading, error },
     singleProductFetch,
-    addToCart,
-    resetCart,
-    updateQty,
     cart,
+    cartActions
   } = props;
+  const { addToCart,updateQty}=cartActions;
   const { slug } = useParams();
   const [product, setProduct] = useState();
   const [qty, setQty] = useState(1);
@@ -46,9 +45,7 @@ const SingleProducts = (props) => {
   })
   useEffect(() => {
     return () => {
-      console.log("unmounting singleProduct");
       setProduct();
-      console.log(product);
     };
   }, []);
 
@@ -124,7 +121,7 @@ const SingleProducts = (props) => {
                     <div className="product-details">
                       <div className="pd-title">
                         <span>{product.categories[0].name}</span>
-                        <h3>{product.name}</h3>
+                        <h3>{product.name.substr(0,50)}</h3>
                         <a href="/#" className="heart-icon">
                           <i className="icon_heart_alt" />
                         </a>

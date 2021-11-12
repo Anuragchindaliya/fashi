@@ -19,3 +19,9 @@ export function addToCart(val) {
        payload: val
     }
  }
+
+ export const cartActions = {
+   addToCart,
+   updateQty,
+   resetCart
+ }

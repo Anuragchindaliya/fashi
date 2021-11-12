@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 import { productsFetch } from "./actions/products.action";
 import { categoriesFetch } from "./actions/categories.action";
 import { singleProductFetch } from "./actions/singleProduct.action";
@@ -10,19 +11,27 @@ import Shop from "./components/pages/Shop";
 import SingleProducts from "./components/pages/SingleProduct";
 import Home from "./components/pages/Home";
 import Dummy from "components/common/dummy";
-import { addToCart, resetCart, updateQty } from "actions/cart.action";
+import { cartActions } from "actions/cart.action";
+import ShoppingCart from "components/pages/shoppingCart";
 
 function App(props) {
-  const { products, categories, singleProductFetch, singleProduct, addToCart, updateQty, resetCart, cart } = props;
+  const {
+    products,
+    categories,
+    singleProductFetch,
+    singleProduct,
+    cart,
+    cartActions,
+  } = props;
   useEffect(() => {
     props.productsFetch();
     props.categoriesFetch();
   }, []);
-  console.log(cart);
+
   return (
     <>
       <Router>
-        <Header categories={categories} cart={cart} updateQty={updateQty} />
+        <Header categories={categories} cart={cart} cartActions={cartActions} />
         <Switch>
           <Route exact path="/">
             <Home products={products} categories={categories} />
@@ -33,8 +42,17 @@ function App(props) {
           <Route exact path="/category/:slug">
             <Shop products={products} categories={categories} />
           </Route>
+          <Route exact path="/shoppingcart">
+            <ShoppingCart cart={cart} cartActions={cartActions} />
+          </Route>
           <Route exact path="/product/:slug">
-            <SingleProducts key={singleProduct.id} singleProduct={singleProduct} cart={cart} singleProductFetch={singleProductFetch} addToCart={addToCart} resetCart={resetCart} updateQty={updateQty} />
+            <SingleProducts
+              key={singleProduct.id}
+              singleProduct={singleProduct}
+              cart={cart}
+              singleProductFetch={singleProductFetch}
+              cartActions={cartActions}
+            />
           </Route>
           <Route exact path="/:cat">
             <Dummy products={products} categories={categories} />
@@ -56,7 +74,7 @@ const mapStateToProps = (state) => {
     products: state.products,
     categories: state.categories,
     singleProduct: state.singleProduct,
-    cart: state.cart
+    cart: state.cart,
   };
 };
 const mapDispatchToProps = (dispatch) => {
@@ -64,10 +82,7 @@ const mapDispatchToProps = (dispatch) => {
     productsFetch: () => dispatch(productsFetch()),
     categoriesFetch: () => dispatch(categoriesFetch()),
     singleProductFetch: (slug) => dispatch(singleProductFetch(slug)),
-    addToCart: (val) => dispatch(addToCart(val)),
-    updateQty: (val) => dispatch(updateQty(val)),
-    resetCart: (val) => dispatch(resetCart(val)),
+    cartActions: bindActionCreators(cartActions, dispatch),
   };
 };
-
 export default connect(mapStateToProps, mapDispatchToProps)(App);

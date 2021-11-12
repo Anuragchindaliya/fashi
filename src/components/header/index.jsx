@@ -1,15 +1,15 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import _ from 'lodash';
 import parse from "html-react-parser";
-const Header = ({ categories: cat, cart,updateQty }) => {
+const Header = ({ categories: cat, cart, cartActions }) => {
+    const { updateQty}=cartActions;
     const { data: categories } = cat;
     const keysArr = Object.keys(cart);
     var totalPrice = 0;
-    console.log("total cart ", cart);
+    
     !_.isEmpty(cart) && keysArr.forEach((key) => {
-        totalPrice += parseInt(cart[key].price);
+        totalPrice += parseInt(cart[key].price*cart[key].qty);
     })
-    console.log(totalPrice);
     return (
         <div>
             {/* Header Section Begin */}
@@ -105,7 +105,7 @@ const Header = ({ categories: cat, cart,updateQty }) => {
                                                     <h5>₹{totalPrice}</h5>
                                                 </div>
                                                 <div className="select-button">
-                                                    <a href="/#" className="primary-btn view-card">VIEW CARD</a>
+                                                    <Link to="/shoppingcart" className="primary-btn view-card">VIEW CARD</Link>
                                                     <a href="/#" className="primary-btn checkout-btn">CHECK OUT</a>
                                                 </div>
                                             </div> : <div>No Items Added</div>}
