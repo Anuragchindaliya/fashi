@@ -2333,7 +2333,7 @@ ol {
 	margin-right: 14px;
 	position: relative;
 }
-.pro-qty span{
+.pro-qty span.left-minus,.pro-qty span.right-plus{
 	position: absolute;
 }
 .pro-qty span.left-minus{
@@ -4399,3 +4399,6 @@ input[type=number] {
 /* .disabled{
 	display: none;
 } */
+.ti-close{
+	cursor: pointer;
+}

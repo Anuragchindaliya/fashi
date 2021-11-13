@@ -7,7 +7,7 @@ import RecentProducts from "../common/recentProducts";
 
 const SingleProducts = (props) => {
   const {
-    singleProduct: { data, loading, error },
+    singleProduct: { data, loading },
     singleProductFetch,
     cart,
     cartActions

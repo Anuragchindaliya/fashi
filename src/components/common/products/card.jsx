@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import parse from "html-react-parser";
 
 const ProductCard = ({ product: el }) => {
     return (

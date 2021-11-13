@@ -12,7 +12,7 @@ import SingleProducts from "./components/pages/SingleProduct";
 import Home from "./components/pages/Home";
 import Dummy from "components/common/dummy";
 import { cartActions } from "actions/cart.action";
-import ShoppingCart from "components/pages/shoppingCart";
+import Cart from "components/pages/cart";
 
 function App(props) {
   const {
@@ -42,8 +42,8 @@ function App(props) {
           <Route exact path="/category/:slug">
             <Shop products={products} categories={categories} />
           </Route>
-          <Route exact path="/shoppingcart">
-            <ShoppingCart cart={cart} cartActions={cartActions} />
+          <Route exact path="/cart">
+            <Cart cart={cart} cartActions={cartActions} />
           </Route>
           <Route exact path="/product/:slug">
             <SingleProducts

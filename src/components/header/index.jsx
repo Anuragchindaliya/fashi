@@ -105,7 +105,7 @@ const Header = ({ categories: cat, cart, cartActions }) => {
                                                     <h5>₹{totalPrice}</h5>
                                                 </div>
                                                 <div className="select-button">
-                                                    <Link to="/shoppingcart" className="primary-btn view-card">VIEW CARD</Link>
+                                                    <Link to="/cart" className="primary-btn view-card">VIEW CART</Link>
                                                     <a href="/#" className="primary-btn checkout-btn">CHECK OUT</a>
                                                 </div>
                                             </div> : <div>No Items Added</div>}

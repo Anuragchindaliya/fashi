@@ -1,5 +1,5 @@
 import { cartTypes } from "types";
-const {ADD_TO_CART,REMOVE_FROM_CART,UPDATE_QTY,RESET_CART} = cartTypes;
+const {ADD_TO_CART,UPDATE_QTY,RESET_CART} = cartTypes;
 
 export function addToCart(val) {
     return {
