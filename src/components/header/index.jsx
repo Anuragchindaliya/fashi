@@ -6,9 +6,9 @@ const Header = ({ categories: cat, cart, cartActions }) => {
     const { data: categories } = cat;
     const keysArr = Object.keys(cart);
     var totalPrice = 0;
-    
     !_.isEmpty(cart) && keysArr.forEach((key) => {
-        totalPrice += parseInt(cart[key].price*cart[key].qty);
+        let price = cart[key].prices?.sale_price || cart[key].price;
+        totalPrice += parseInt(price*cart[key].qty);
     })
     return (
         <div>
@@ -69,10 +69,10 @@ const Header = ({ categories: cat, cart, cartActions }) => {
                                         <span>1</span>
                                     </a>
                                     </li>
-                                    <li className="cart-icon"><a href="/#">
+                                    <li className="cart-icon"><Link to="/cart">
                                         <i className="icon_bag_alt" />
                                         <span>{keysArr.length}</span>
-                                    </a>
+                                    </Link>
                                         <div className="cart-hover">
                                             {keysArr.length > 0 ? <div>
                                                 <div className="select-items">
@@ -85,7 +85,7 @@ const Header = ({ categories: cat, cart, cartActions }) => {
                                                                         <td className="si-pic" width="75px"><img src={item.images[0].src} alt="" /></td>
                                                                         <td className="si-text">
                                                                             <div className="product-selected">
-                                                                                <p>₹{item.price} Qty: {item.qty}</p>
+                                                                                <p>₹{item.prices?.sale_price || item.price} Qty: {item.qty}</p>
                                                                                 <h6>{item.name}</h6>
                                                                             </div>
                                                                         </td>

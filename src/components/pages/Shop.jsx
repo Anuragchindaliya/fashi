@@ -18,14 +18,14 @@ function Shop({ products: { data: products }, categories }) {
     allproducts.length > 0
       ? catSlug
         ? allproducts.filter((pr) => {
-            var ans = false;
-            pr.categories.forEach((ele) => {
-              if (ele.slug === catSlug) {
-                ans = true;
-              }
-            });
-            return ans;
-          })
+          var ans = false;
+          pr.categories.forEach((ele) => {
+            if (ele.slug === catSlug) {
+              ans = true;
+            }
+          });
+          return ans;
+        })
         : products
       : [];
   return (

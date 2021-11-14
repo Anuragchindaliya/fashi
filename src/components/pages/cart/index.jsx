@@ -15,8 +15,6 @@ const Cart = ({ cart, cartActions }) => {
     keysArr.forEach((key) => {
         allCartQty[key] = parseInt(cart[key].qty);
     })
-
-    // console.log(cart, cartActions);
     return (
         <>
             {/* Shopping Cart Section Begin */}

@@ -1228,14 +1228,16 @@ ol {
 	list-style: none;
 	display: inline-block;
 	background: #ffffff;
+	cursor: pointer;
 }
 
-.product-item .pi-pic ul li.w-icon.active a {
+.product-item .pi-pic ul li.w-icon.active b {
 	background: #e7ab3c;
 	color: #ffffff;
+	cursor: pointer;
 }
 
-.product-item .pi-pic ul li a {
+.product-item .pi-pic ul li b {
 	font-size: 16px;
 	font-weight: 700;
 	color: #252525;
@@ -1263,7 +1265,7 @@ ol {
 	display: block;
 }
 
-.product-item .pi-text a h5 {
+.product-item .pi-text  h5 {
 	color: #252525;
 	text-overflow: ellipsis;
     white-space: nowrap;
@@ -3979,7 +3981,7 @@ input[type=number] {
 	.inner-header .advanced-search .input-group button {
 		right: -14px;
 	}
-	.product-item .pi-pic ul li a {
+	.product-item .pi-pic ul li b {
 		padding: 16px 12px 12px 11px;
 	}
 	.nav-item .nav-menu li a {

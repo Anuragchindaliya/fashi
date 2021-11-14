@@ -13,6 +13,7 @@ import Home from "./components/pages/Home";
 import Dummy from "components/common/dummy";
 import { cartActions } from "actions/cart.action";
 import Cart from "components/pages/cart";
+import { ToastContainer } from "react-toastify";
 
 function App(props) {
   const {
@@ -37,7 +38,7 @@ function App(props) {
             <Home products={products} categories={categories} />
           </Route>
           <Route exact path="/shop">
-            <Shop products={products} categories={categories} />
+            <Shop products={products} categories={categories} cartActions={cartActions} />
           </Route>
           <Route exact path="/category/:slug">
             <Shop products={products} categories={categories} />
@@ -65,6 +66,7 @@ function App(props) {
 
         <Footer />
       </Router>
+      <ToastContainer />
     </>
   );
 }
