@@ -4,6 +4,7 @@ import parse from "html-react-parser";
 import { useParams } from "react-router-dom";
 import OwlCarousel from "react-owl-carousel";
 import RecentProducts from "../common/recentProducts";
+import { toast } from "react-toastify";
 
 const SingleProducts = (props) => {
   const {
@@ -12,7 +13,8 @@ const SingleProducts = (props) => {
     cart,
     cartActions
   } = props;
-  const { addToCart,updateQty}=cartActions;
+  const { addToCart, updateQty } = cartActions;
+  const [updateBtnStatus, setUpdateBtnStatus] = useState(false);
   const { slug } = useParams();
   const [product, setProduct] = useState();
   const [qty, setQty] = useState(1);
@@ -32,28 +34,37 @@ const SingleProducts = (props) => {
     qty > 0 && setQty(qty - 1);
   };
 
+  useEffect(()=>{
+    // const status = !_.isEmpty()?qty===cart[data[0].id].qty?false:true:false;
+    const status = () => {
+      if(cart[data[0]?.id]){
+        return qty!==cart[data[0].id].qty
+      }
+      return false
+    };
+    setUpdateBtnStatus(status)
+  },[qty,cart,data])
+
   useEffect(() => {
     singleProductFetch(slug);
   }, []);
-  useEffect(()=>{
+
+  useEffect(() => {
     var ele = document.querySelector('#prdDesc') || '';
-    if(ele.offsetHeight>200){
-      ele.style.maxHeight='200px';
-      ele.style.overflow='hidden';
-      
+    if (ele.offsetHeight > 200) {
+      ele.style.maxHeight = '200px';
+      ele.style.overflow = 'hidden';
+
     }
   })
-  useEffect(() => {
-    return () => {
-      setProduct();
-    };
-  }, []);
 
   useEffect(() => {
     setProduct(data[0]);
     if (data.length > 0) {
       setEnlargedImage(data[0].images[0]);
     }
+    !_.isEmpty(cart) && data[0] && cart[data[0].id] &&
+    setQty(cart[data[0].id].qty);
   }, [data]);
 
   const handleEnlargedImage = (img, index) => {
@@ -67,6 +78,7 @@ const SingleProducts = (props) => {
       product: { ...product, qty: 1 },
       productId: product.id,
     })
+    toast.success(<div>{product.name.substr(0, 40)} - Added to the cart</div>);
   }
   return (
     <>
@@ -121,7 +133,7 @@ const SingleProducts = (props) => {
                     <div className="product-details">
                       <div className="pd-title">
                         <span>{product.categories[0].name}</span>
-                        <h3>{product.name.substr(0,50)}</h3>
+                        <h3>{product.name.substr(0, 50)}</h3>
                         <a href="/#" className="heart-icon">
                           <i className="icon_heart_alt" />
                         </a>
@@ -155,9 +167,11 @@ const SingleProducts = (props) => {
                         {cart[product.id] && cart[product.id].qty > 0 ? (
                           <b
                             href="/#"
-                            className="primary-btn pd-cart"
-                            onClick={() =>
-                              updateQty({ qty: qty, productId: product.id })
+                            className={`${updateBtnStatus?'':'disabled'} primary-btn pd-cart`}
+                            onClick={() => {
+                              updateQty({ qty: qty, productId: product.id });
+                              toast.success(<div>{product.name.substr(0, 40)} - Quantity is updated </div>);
+                            }
                             }
                           >
                             Update Cart
@@ -224,17 +238,15 @@ const SingleProducts = (props) => {
                           <span>CATEGORIES</span>:
                           {product.categories.map(
                             (obj, i) =>
-                              `${obj.name} ${
-                                i === product.categories.length - 1 ? "" : ","
+                              `${obj.name} ${i === product.categories.length - 1 ? "" : ","
                               } `
                           )}
                         </li>
                         <li>
                           <span>TAGS</span>: {/* {data.tags.join(", ")} */}
                           {product.tags.map((tag, i) => {
-                            return `${tag.name.toUpperCase()}${
-                              i !== product.tags.length - 1 ? ", " : ""
-                            }`;
+                            return `${tag.name.toUpperCase()}${i !== product.tags.length - 1 ? ", " : ""
+                              }`;
                           })}
                         </li>
                       </ul>

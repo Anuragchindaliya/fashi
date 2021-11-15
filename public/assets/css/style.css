@@ -1169,6 +1169,10 @@ ol {
 	top: 15px;
 	opacity: 1;
 }
+.product-item .pi-pic .icon.heart-icon{
+	top:15px;
+	opacity: 1;
+}
 
 .product-item:hover .pi-pic ul {
 	bottom: 0;
@@ -2396,6 +2400,12 @@ input[type=number] {
 .product-details .quantity .primary-btn.pd-cart {
 	padding: 14px 40px 10px;
 	cursor: pointer;
+}
+
+b.disabled.primary-btn.pd-cart {
+    pointer-events: none;
+    user-select: none;
+    filter: grayscale(1);
 }
 
 .product-details .pd-tags {

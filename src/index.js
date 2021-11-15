@@ -14,7 +14,7 @@ const sagaMiddleware = createSagaMiddleware();
 // )(createStore)(reducer);
 const store = createStore(
   reducer,
-  compose(applyMiddleware(sagaMiddleware), window.devToolsExtension && window.devToolsExtension()),
+  compose(applyMiddleware(sagaMiddleware)),
 )
 
 // const cartStore = createStore(cartReducer, JSON.parse(localStorage.getItem("cart")));

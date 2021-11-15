@@ -1,6 +1,7 @@
 import { Link, NavLink } from "react-router-dom";
 import _ from 'lodash';
 import parse from "html-react-parser";
+import { toast } from "react-toastify";
 const Header = ({ categories: cat, cart, cartActions }) => {
     const { updateQty}=cartActions;
     const { data: categories } = cat;
@@ -90,8 +91,10 @@ const Header = ({ categories: cat, cart, cartActions }) => {
                                                                             </div>
                                                                         </td>
                                                                         <td className="si-close">
-                                                                            <i className="ti-close" onClick={() =>
+                                                                            <i className="ti-close" onClick={() => {
                                                                                 updateQty({ qty: 0, productId: item.id })
+                                                                                toast.success(<div>{item.name} removed from cart</div>);
+                                                                            }
                                                                             } />
                                                                         </td>
                                                                     </tr>)
