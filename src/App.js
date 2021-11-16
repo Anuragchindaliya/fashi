@@ -2,18 +2,22 @@ import { useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+
 import { productsFetch } from "./actions/products.action";
 import { categoriesFetch } from "./actions/categories.action";
 import { singleProductFetch } from "./actions/singleProduct.action";
+import { cartActions } from "actions/cart.action";
+
 import Footer from "./components/footer";
 import Header from "./components/header";
 import Shop from "./components/pages/Shop";
 import SingleProducts from "./components/pages/SingleProduct";
 import Home from "./components/pages/Home";
 import Dummy from "components/common/dummy";
-import { cartActions } from "actions/cart.action";
+
 import Cart from "components/pages/cart";
 import { ToastContainer } from "react-toastify";
+import Favourite from "components/pages/favourite";
 
 function App(props) {
   const {
@@ -23,28 +27,36 @@ function App(props) {
     singleProduct,
     cart,
     cartActions,
+    favourite,
   } = props;
   useEffect(() => {
     props.productsFetch();
     props.categoriesFetch();
   }, []);
-
+  console.log(favourite)
   return (
     <>
       <Router>
-        <Header categories={categories} cart={cart} cartActions={cartActions} />
+        <Header categories={categories} cart={cart} favourite={favourite} cartActions={cartActions} />
         <Switch>
           <Route exact path="/">
             <Home products={products} categories={categories} />
           </Route>
           <Route exact path="/shop">
-            <Shop products={products} categories={categories} cartActions={cartActions} />
+            <Shop
+              products={products}
+              categories={categories}
+              cartActions={cartActions}
+            />
           </Route>
           <Route exact path="/category/:slug">
             <Shop products={products} categories={categories} />
           </Route>
           <Route exact path="/cart">
             <Cart cart={cart} cartActions={cartActions} />
+          </Route>
+          <Route exact path="/fav">
+            <Favourite fav={favourite} />
           </Route>
           <Route exact path="/product/:slug">
             <SingleProducts
@@ -77,6 +89,7 @@ const mapStateToProps = (state) => {
     categories: state.categories,
     singleProduct: state.singleProduct,
     cart: state.cart,
+    favourite: state.favourite,
   };
 };
 const mapDispatchToProps = (dispatch) => {

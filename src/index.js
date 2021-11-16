@@ -14,15 +14,20 @@ const sagaMiddleware = createSagaMiddleware();
 // )(createStore)(reducer);
 const store = createStore(
   reducer,
-  compose(applyMiddleware(sagaMiddleware)),
-)
+  compose(
+    applyMiddleware(sagaMiddleware),
+    // window.devToolsExtension && window.devToolsExtension()
+  )
+);
 
 // const cartStore = createStore(cartReducer, JSON.parse(localStorage.getItem("cart")));
 
 store.subscribe(() => {
-  console.log("store state ",store.getState().cart);
   if (store.getState().cart) {
     localStorage.setItem("cart", JSON.stringify(store.getState().cart));
+  }
+  if (store.getState().favourite) {
+    localStorage.setItem("fav", JSON.stringify(store.getState().favourite));
   }
 });
 

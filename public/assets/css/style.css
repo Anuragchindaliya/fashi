@@ -1172,6 +1172,7 @@ ol {
 .product-item .pi-pic .icon.heart-icon{
 	top:15px;
 	opacity: 1;
+	color:red;
 }
 
 .product-item:hover .pi-pic ul {

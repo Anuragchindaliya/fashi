@@ -2,14 +2,14 @@ import { Link, NavLink } from "react-router-dom";
 import _ from 'lodash';
 import parse from "html-react-parser";
 import { toast } from "react-toastify";
-const Header = ({ categories: cat, cart, cartActions }) => {
-    const { updateQty}=cartActions;
+const Header = ({ categories: cat, cart, cartActions, favourite }) => {
+    const { updateQty } = cartActions;
     const { data: categories } = cat;
     const keysArr = Object.keys(cart);
     var totalPrice = 0;
     !_.isEmpty(cart) && keysArr.forEach((key) => {
         let price = cart[key].prices?.sale_price || cart[key].price;
-        totalPrice += parseInt(price*cart[key].qty);
+        totalPrice += parseInt(price * cart[key].qty);
     })
     return (
         <div>
@@ -65,10 +65,10 @@ const Header = ({ categories: cat, cart, cartActions }) => {
                             </div>
                             <div className="col-lg-3 text-right col-md-3">
                                 <ul className="nav-right">
-                                    <li className="heart-icon"><a href="/#">
+                                    <li className="heart-icon"><Link to="/fav">
                                         <i className="icon_heart_alt" />
-                                        <span>1</span>
-                                    </a>
+                                        <span>{Object.keys(favourite).length}</span>
+                                    </Link>
                                     </li>
                                     <li className="cart-icon"><Link to="/cart">
                                         <i className="icon_bag_alt" />

@@ -6,23 +6,36 @@ import { bindActionCreators } from 'redux';
 import parse from 'html-react-parser'
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { favActions } from 'actions/favourite.action';
 
-const ProductCard = ({ product: el, cartActions, cart }) => {
+const ProductCard = ({ product: el, cartActions, cart, favActions, favourite }) => {
     const [isCartStatus, setCartStatus] = useState(true);
+    const [isFavStatus, setFavStatus] = useState(true);
+
     useEffect(() => {
         setCartStatus(cart[el.id] ? true : false)
-    }, [cart, el.id])
+    }, [cart, el.id]);
+
     const { addToCart, updateQty } = cartActions;
+    const { addToFav, removeFromFav, resetFav } = favActions;
+
     const handleCartStatus = () => {
         if (isCartStatus) {
             updateQty({ qty: 0, productId: el.id });
-            toast.success(<div><b>{el.name}</b> Removed from Cart</div>,{position:"top-right"})
+            toast.success(<div><b>{el.name}</b> Removed from Cart</div>, { position: "top-right" })
         } else {
             addToCart({ product: { ...el, qty: 1 }, productId: el.id })
-            toast.success(`${el.name} Added to Cart`,{position:"top-right"})
+            toast.success(`${el.name} Added to Cart`, { position: "top-right" })
         }
         setCartStatus(!isCartStatus);
     }
+
+    useEffect(() => {
+        // setFavStatus(Object.keys(favourite).includes(el.id));
+        console.log(Object.keys(favourite).includes(el.id));
+        var heartStatus = Object.keys(favourite).includes(el.id)
+        setFavStatus(heartStatus);
+    }, [])
     return (
         <>
             <div className="product-item">
@@ -33,8 +46,8 @@ const ProductCard = ({ product: el, cartActions, cart }) => {
                         el.on_sale &&
                         <div className="sale">Sale</div>
                     }
-                    <div className="icon heart-icon">
-                        <i className="icon_heart_alt" />
+                    <div className="icon heart-icon" onClick={() => addToFav({ productId: el.id, product: el })}>
+                        <i className={isFavStatus ? "icon_heart" : "icon_heart_alt"} />
                     </div>
                     <ul>
                         <li className="w-icon active" title={isCartStatus ? "Remove from cart" : "Add to cart"} onClick={handleCartStatus} ><b><i className={isCartStatus ? "icon_close" : "icon_bag_alt"} /></b></li>
@@ -63,11 +76,13 @@ const ProductCard = ({ product: el, cartActions, cart }) => {
 const mapStateToProps = (state) => {
     return {
         cart: state.cart,
+        favourite: state.favourite
     };
 };
 const mapDispatchToProps = (dispatch) => {
     return {
         cartActions: bindActionCreators(cartActions, dispatch),
+        favActions: bindActionCreators(favActions, dispatch)
     };
 };
 
