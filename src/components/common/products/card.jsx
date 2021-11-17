@@ -32,7 +32,6 @@ const ProductCard = ({ product: el, cartActions, cart, favActions, favourite }) 
 
     useEffect(() => {
         // setFavStatus(Object.keys(favourite).includes(el.id));
-        console.log(Object.keys(favourite).includes(el.id));
         var heartStatus = Object.keys(favourite).includes(el.id)
         setFavStatus(heartStatus);
     }, [])

@@ -18,6 +18,8 @@ import Dummy from "components/common/dummy";
 import Cart from "components/pages/cart";
 import { ToastContainer } from "react-toastify";
 import Favourite from "components/pages/favourite";
+import SingleProductSkeleton from "components/common/skeleton/singleProductSkeleton";
+import ShopSkeleton from "components/common/skeleton/shopSkeleton";
 
 function App(props) {
   const {
@@ -33,11 +35,15 @@ function App(props) {
     props.productsFetch();
     props.categoriesFetch();
   }, []);
-  console.log(favourite)
   return (
     <>
       <Router>
-        <Header categories={categories} cart={cart} favourite={favourite} cartActions={cartActions} />
+        <Header
+          categories={categories}
+          cart={cart}
+          favourite={favourite}
+          cartActions={cartActions}
+        />
         <Switch>
           <Route exact path="/">
             <Home products={products} categories={categories} />
@@ -57,6 +63,12 @@ function App(props) {
           </Route>
           <Route exact path="/fav">
             <Favourite fav={favourite} />
+          </Route>
+          <Route exact path="/skeleton">
+            <SingleProductSkeleton />
+          </Route>
+          <Route exact path="/prod">
+            <ShopSkeleton products={products} />
           </Route>
           <Route exact path="/product/:slug">
             <SingleProducts

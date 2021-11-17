@@ -30,18 +30,16 @@ const CartItem = ({ item, cartActions }) => {
     }
     const debounce = (func, delay) => {
         let timeoutId;
-        console.log(func, delay);
         return function () {
             if (timeoutId) {
                 clearTimeout(timeoutId);
             }
             timeoutId = setTimeout(() => {
-                console.log("args", ...arguments);
                 func(...arguments);
             }, delay);
         }
     }
-    const OptimizedVersion = useCallback(() => { console.log("opti"); debounce(handleQtyChange, 3000) }, []);
+    const OptimizedVersion = useCallback(() => {debounce(handleQtyChange, 3000) }, []);
     return (
         <>
             {item &&

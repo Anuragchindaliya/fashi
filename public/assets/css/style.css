@@ -4415,3 +4415,26 @@ b.disabled.primary-btn.pd-cart {
 .ti-close{
 	cursor: pointer;
 }
+.grayElement {
+	animation-duration: 3s;
+	animation-fill-mode: forwards;
+	animation-iteration-count: infinite;
+	animation-name: placeholdernitish;
+	animation-timing-function: linear;
+	background: linear-gradient(
+	  to right,
+	  #eeee 30%,
+	  #fcf8f8 40%,
+	  #eeee 50%
+	);
+	position: relative;
+	background-size: 800px 104px;
+  }
+  @keyframes placeholdernitish {
+	0% {
+	  background-position: -800px 0;
+	}
+	100% {
+	  background-position: 800px 0;
+	}
+  }

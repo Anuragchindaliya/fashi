@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import OwlCarousel from "react-owl-carousel";
 import RecentProducts from "../common/recentProducts";
 import { toast } from "react-toastify";
+import SingleProductSkeleton from "components/common/skeleton/singleProductSkeleton";
 
 const SingleProducts = (props) => {
   const {
@@ -84,9 +85,7 @@ const SingleProducts = (props) => {
     <>
       <section className="product-shop spad page-details">
         {loading && (
-          <div id="preloder2">
-            <div className="loader" />
-          </div>
+          <SingleProductSkeleton />
         )}
         {!loading && !_.isEmpty(product) && (
           <div className="container">

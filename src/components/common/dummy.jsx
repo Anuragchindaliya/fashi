@@ -12,7 +12,6 @@ const Dummy = ({ products, categories }) => {
     })
     return ans;
 })
-    console.log(cat, products.data[0], finalProduct);
 
     return (
         <div>
