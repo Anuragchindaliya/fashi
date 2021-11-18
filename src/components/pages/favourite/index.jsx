@@ -1,7 +1,9 @@
 import React from 'react'
 import ProductCard from "components/common/products/card";
-const Favourite = ({ fav }) => {
-    const favKeys = Object.keys(fav);
+const Favourite = ({ favActions, fav, allproducts }) => {
+    const finalProduct = allproducts.data.filter((el) => fav.includes(el.id));
+    const { resetFav } = favActions;
+    console.log("resetfunction ", resetFav)
     return (
         <section className="product-shop spad">
             <div className="container">
@@ -17,6 +19,7 @@ const Favourite = ({ fav }) => {
                                         <select className="p-show">
                                             <option value>Show:</option>
                                         </select>
+                                        <b className={"px-5 py-0 btn p-show"} onClick={() => { console.log("resert", resetFav()) }} >Remove all</b>
                                     </div>
                                 </div>
                                 <div className="col-lg-5 col-md-5 text-right">
@@ -26,10 +29,10 @@ const Favourite = ({ fav }) => {
                         </div>
                         <div className="product-list">
                             <div className="row">
-                                {favKeys.map((key) => {
+                                {finalProduct.map((pr, index) => {
                                     return (
-                                        <div key={key} className="col-lg-4 col-sm-6">
-                                            <ProductCard product={fav[key]} />
+                                        <div key={index} className="col-lg-4 col-sm-6">
+                                            <ProductCard product={pr} favourite={fav} />
                                         </div>
                                     );
                                 })}

@@ -7,10 +7,12 @@ import parse from 'html-react-parser'
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { favActions } from 'actions/favourite.action';
+import ProductCardSk from '../skeleton/productCardSk';
 
 const ProductCard = ({ product: el, cartActions, cart, favActions, favourite }) => {
     const [isCartStatus, setCartStatus] = useState(true);
-    const [isFavStatus, setFavStatus] = useState(true);
+    const [isFavStatus, setFavStatus] = useState(false);
+    const [isImageLoaded, setImageLoaded] = useState(false);
 
     useEffect(() => {
         setCartStatus(cart[el.id] ? true : false)
@@ -32,20 +34,33 @@ const ProductCard = ({ product: el, cartActions, cart, favActions, favourite }) 
 
     useEffect(() => {
         // setFavStatus(Object.keys(favourite).includes(el.id));
-        var heartStatus = Object.keys(favourite).includes(el.id)
-        setFavStatus(heartStatus);
-    }, [])
+        if (favourite.includes(el.id)) {
+            setFavStatus(true);
+        }else{
+            setFavStatus(false);
+        }
+    }, [favourite])
+
+    const handleFavStatus = () => {
+        if (isFavStatus) {
+            removeFromFav(el.id);
+        } else {
+            addToFav(el.id)
+        }
+    }
     return (
         <>
             <div className="product-item">
                 <div className="pi-pic">
-                    <Link to={{ pathname: `${new URL(el.permalink).pathname}`, state: el }} onClick={(e) => e.stopPropagation()} ><img src={el.images.length > 0 ? el.images[0].src : ''} alt="" /></Link>
+                    <Link to={{ pathname: `${new URL(el.permalink).pathname}`, state: el }} onClick={(e) => e.stopPropagation()} >
+                        <img src={el.images.length > 0 ? el.images[0].src : ''} alt="" onLoad={() => { console.log("loaded ", el.id); setImageLoaded(true) }} />
+                    </Link>
                     {el.on_sale && <div className="sale pp-sale">Sale</div>}
                     {
                         el.on_sale &&
                         <div className="sale">Sale</div>
                     }
-                    <div className="icon heart-icon" onClick={() => addToFav({ productId: el.id, product: el })}>
+                    <div className="icon heart-icon" onClick={handleFavStatus}>
                         <i className={isFavStatus ? "icon_heart" : "icon_heart_alt"} />
                     </div>
                     <ul>
@@ -68,6 +83,7 @@ const ProductCard = ({ product: el, cartActions, cart, favActions, favourite }) 
                     </div>
                 </Link>
             </div>
+
         </>
     )
 }

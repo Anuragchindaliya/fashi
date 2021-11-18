@@ -20,6 +20,7 @@ import { ToastContainer } from "react-toastify";
 import Favourite from "components/pages/favourite";
 import SingleProductSkeleton from "components/common/skeleton/singleProductSkeleton";
 import ShopSkeleton from "components/common/skeleton/shopSkeleton";
+import { favActions } from "actions/favourite.action";
 
 function App(props) {
   const {
@@ -30,6 +31,7 @@ function App(props) {
     cart,
     cartActions,
     favourite,
+    favActions
   } = props;
   useEffect(() => {
     props.productsFetch();
@@ -43,6 +45,8 @@ function App(props) {
           cart={cart}
           favourite={favourite}
           cartActions={cartActions}
+          products={products}
+          favActions={favActions}
         />
         <Switch>
           <Route exact path="/">
@@ -62,7 +66,7 @@ function App(props) {
             <Cart cart={cart} cartActions={cartActions} />
           </Route>
           <Route exact path="/fav">
-            <Favourite fav={favourite} />
+            <Favourite favActions={favActions} fav={favourite} allproducts={products}/>
           </Route>
           <Route exact path="/skeleton">
             <SingleProductSkeleton />
@@ -110,6 +114,7 @@ const mapDispatchToProps = (dispatch) => {
     categoriesFetch: () => dispatch(categoriesFetch()),
     singleProductFetch: (slug) => dispatch(singleProductFetch(slug)),
     cartActions: bindActionCreators(cartActions, dispatch),
+    favActions:bindActionCreators(favActions,dispatch),
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(App);

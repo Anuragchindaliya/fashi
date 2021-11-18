@@ -2,15 +2,26 @@ import { Link, NavLink } from "react-router-dom";
 import _ from 'lodash';
 import parse from "html-react-parser";
 import { toast } from "react-toastify";
-const Header = ({ categories: cat, cart, cartActions, favourite }) => {
+const Header = ({ categories: cat, cart, cartActions, products, favourite, favActions }) => {
     const { updateQty } = cartActions;
+    const { removeFromFav } = favActions;
+
     const { data: categories } = cat;
     const keysArr = Object.keys(cart);
-    var totalPrice = 0;
+    var cartTotalPrice = 0;
+    var favTotalPrice = 0;
     !_.isEmpty(cart) && keysArr.forEach((key) => {
         let price = cart[key].prices?.sale_price || cart[key].price;
-        totalPrice += parseInt(price * cart[key].qty);
+        cartTotalPrice += parseInt((price / 100) * cart[key].qty);
     })
+
+    const favProducts = products.data.filter((pr) => favourite.includes(pr.id));
+    favProducts.forEach((pr) => {
+        let price = pr.prices?.sale_price || pr.price;
+
+        favTotalPrice += (+price / 100);
+    })
+    console.log("favProducts price ", favTotalPrice);
     return (
         <div>
             {/* Header Section Begin */}
@@ -65,10 +76,52 @@ const Header = ({ categories: cat, cart, cartActions, favourite }) => {
                             </div>
                             <div className="col-lg-3 text-right col-md-3">
                                 <ul className="nav-right">
-                                    <li className="heart-icon"><Link to="/fav">
-                                        <i className="icon_heart_alt" />
-                                        <span>{Object.keys(favourite).length}</span>
-                                    </Link>
+                                    <li className="cart-icon">
+                                        <Link to="/fav">
+                                            <i className="icon_heart_alt" />
+                                            <span>{favourite.length}</span>
+                                        </Link>
+                                        <div className="cart-hover">
+                                            {favProducts.length > 0 ? <div>
+                                                <div className="select-items">
+                                                    <table>
+                                                        <tbody>
+                                                            {
+                                                                favProducts.map((item, index) => {
+                                                                    return (<tr key={index}>
+                                                                        <td className="si-pic" width="75px">
+                                                                            <img src={item.images[0].src} alt="" /></td>
+                                                                        <td className="si-text">
+                                                                            <div className="product-selected">
+                                                                                <p>₹{item.prices?.sale_price / 100 || item.price / 100}</p>
+                                                                                <h6>{item.name}</h6>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td className="si-close">
+                                                                            <i className="ti-close" title="Remove from list" onClick={() => {
+                                                                                removeFromFav(item.id)
+                                                                                toast.success(<div>{item.name} removed from favourite</div>);
+                                                                            }
+                                                                            } />
+                                                                        </td>
+                                                                    </tr>)
+                                                                })
+                                                            }
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div className="select-total">
+                                                    <span>total:</span>
+                                                    <h5>₹{favTotalPrice}</h5>
+                                                </div>
+                                                <div className="select-button">
+                                                    <Link to="/fav" className="primary-btn view-card">VIEW FAVOURITE</Link>
+                                                    <a href="/#" className="primary-btn checkout-btn">CHECK OUT</a>
+                                                </div>
+                                            </div> : <div>No Favourite Items Added</div>}
+
+                                            { }
+                                        </div>
                                     </li>
                                     <li className="cart-icon"><Link to="/cart">
                                         <i className="icon_bag_alt" />
@@ -86,7 +139,7 @@ const Header = ({ categories: cat, cart, cartActions, favourite }) => {
                                                                         <td className="si-pic" width="75px"><img src={item.images[0].src} alt="" /></td>
                                                                         <td className="si-text">
                                                                             <div className="product-selected">
-                                                                                <p>₹{item.prices?.sale_price || item.price} Qty: {item.qty}</p>
+                                                                                <p>₹{item.prices?.sale_price / 100 || item.price / 100} Qty: {item.qty}</p>
                                                                                 <h6>{item.name}</h6>
                                                                             </div>
                                                                         </td>
@@ -105,7 +158,7 @@ const Header = ({ categories: cat, cart, cartActions, favourite }) => {
                                                 </div>
                                                 <div className="select-total">
                                                     <span>total:</span>
-                                                    <h5>₹{totalPrice}</h5>
+                                                    <h5>₹{cartTotalPrice}</h5>
                                                 </div>
                                                 <div className="select-button">
                                                     <Link to="/cart" className="primary-btn view-card">VIEW CART</Link>
@@ -116,7 +169,7 @@ const Header = ({ categories: cat, cart, cartActions, favourite }) => {
                                             { }
                                         </div>
                                     </li>
-                                    <li className="cart-price">$150.00</li>
+                                    <li className="cart-price">₹{cartTotalPrice}</li>
                                 </ul>
                             </div>
                         </div>

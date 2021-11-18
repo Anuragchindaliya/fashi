@@ -13,9 +13,6 @@ const ProductCardSk = () => {
                     </div>
                     <ul>
                         <GrayElement grayPropsStyles={{ "height": "50px", "borderRadius": "3px", "width": "70%", "margin": "0 auto", "background": "lightgray" }} />
-                        {/* <li className="w-icon active" title={"Add to cart"} ><b><i className={"icon_bag_alt"} /></b></li>
-                        <li className="quick-view"><b> View More</b></li>
-                        <li className="w-icon"><b ><i className="fa fa-random" /></b></li> */}
                     </ul>
                 </div>
 

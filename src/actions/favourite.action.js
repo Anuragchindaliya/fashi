@@ -1,5 +1,5 @@
 import { favouriteProductTypes } from "types";
-const { ADD_TO_FAV, REMOVE_FROM_CART, RESET_FAV } = favouriteProductTypes;
+const { ADD_TO_FAV, REMOVE_FROM_FAV, RESET_FAV } = favouriteProductTypes;
 
 export function addToFav(val) {
   return {
@@ -9,7 +9,7 @@ export function addToFav(val) {
 }
 export function removeFromFav(val) {
   return {
-    type: REMOVE_FROM_CART,
+    type: REMOVE_FROM_FAV,
     payload: val,
   };
 }
