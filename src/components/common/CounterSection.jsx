@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 const CounterSection = () => {
     return (
         <>
@@ -32,7 +33,7 @@ const CounterSection = () => {
                                 <p>Secs</p>
                             </div>
                         </div>
-                        <a href="/#" className="primary-btn">Shop Now</a>
+                        <Link to="/shop" className="primary-btn">Shop Now</Link>
                     </div>
                 </div>
             </section>

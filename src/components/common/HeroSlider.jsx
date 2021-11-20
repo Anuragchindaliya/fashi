@@ -1,4 +1,5 @@
 import OwlCarousel from "react-owl-carousel";
+import { Link } from "react-router-dom";
 const HeroSlider = ()=>{
 return(
     <>
@@ -28,9 +29,9 @@ return(
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit,
                     sed do eiusmod tempor incididunt ut labore et dolore
                   </p>
-                  <a href="/#" className="primary-btn">
+                  <Link to="/shop" className="primary-btn">
                     Shop Now
-                  </a>
+                  </Link>
                 </div>
               </div>
               <div className="off-card">

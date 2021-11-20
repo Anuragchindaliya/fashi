@@ -44,8 +44,10 @@ const ProductCard = ({ product: el, cartActions, cart, favActions, favourite }) 
     const handleFavStatus = () => {
         if (isFavStatus) {
             removeFromFav(el.id);
+            toast.success(`${el.name.substr(0,40)} Removed to Fav`, { position: "top-right" })
         } else {
             addToFav(el.id)
+            toast.success(`${el.name.substr(0,40)} Added to Fav`, { position: "top-right" })
         }
     }
     return (

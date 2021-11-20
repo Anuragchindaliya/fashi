@@ -1184,10 +1184,13 @@ ol {
 	position: relative;
 	border: 1px solid #e7ab3c;
 	border-bottom: 0;
+	height: 328px;
 }
 
 .product-item .pi-pic img {
 	min-width: 100%;
+	height: 100%;
+	object-fit: contain;
 }
 
 .product-item .pi-pic .sale {
