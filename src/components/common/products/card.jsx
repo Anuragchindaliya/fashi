@@ -1,4 +1,4 @@
-import { cartActions, updateQty } from 'actions/cart.action';
+import { cartActions } from 'actions/cart.action';
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -55,7 +55,7 @@ const ProductCard = ({ product: el, cartActions, cart, favActions, favourite }) 
             <div className="product-item">
                 <div className="pi-pic">
                     <Link to={{ pathname: `${new URL(el.permalink).pathname}`, state: el }} onClick={(e) => e.stopPropagation()} >
-                        <img src={el.images.length > 0 ? el.images[0].src : ''} alt="" onLoad={() => { console.log("loaded ", el.id); setImageLoaded(true) }} />
+                        <img src={el.images.length > 0 ? el.images[0].src : ''} alt="" onLoad={() => {setImageLoaded(true) }} />
                     </Link>
                     {el.on_sale && <div className="sale pp-sale">Sale</div>}
                     {
@@ -79,8 +79,8 @@ const ProductCard = ({ product: el, cartActions, cart, favActions, favourite }) 
                         <h5>{el.name}</h5>
                         <div className="product-price">
                             {/* {parse(el.price_html)}  */}
-                            {el.prices.currency_prefix}{el.prices.sale_price / 100}
-                            <span>{el.prices.currency_prefix}{el.prices.regular_price / 100}</span>
+                            {el.prices.currency_prefix}{el.prices.sale_price}
+                            <span>{el.prices.currency_prefix}{el.prices.regular_price}</span>
                         </div>
                     </div>
                 </Link>

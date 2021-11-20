@@ -30,10 +30,10 @@
     /*------------------
 		Navigation
 	--------------------*/
-    $(".mobile-menu").slicknav({
-        prependTo: '#mobile-menu-wrap',
-        allowParentLinks: true
-    });
+    // $(".mobile-menu").slicknav({
+    //     prependTo: '#mobile-menu-wrap',
+    //     allowParentLinks: true
+    // });
 
     /*------------------
         Hero Slider
@@ -165,11 +165,11 @@
         var pagename = document.location.pathname.toString();
         pagename = pagename.split("/");
         pages.setIndexByValue(pagename[pagename.length-1]);
-        $("#ver").html(msBeautify.version.msDropdown);
+        // $("#ver").html(msBeautify.version.msDropdown);
     } catch(e) {
         // console.log(e);
     }
-    $("#ver").html(msBeautify.version.msDropdown);
+    // $("#ver").html(msBeautify.version.msDropdown);
 
     //convert
     $(".language_drop").msDropdown({roundedBorder:false});
@@ -247,4 +247,5 @@
 		$button.parent().find('input').val(newVal);
 	});
 
-})(jQuery);
+})();
+// })(jQuery);

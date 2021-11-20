@@ -359,8 +359,6 @@ ol {
 	color: #252525;
 	float: left;
 	border-right: 1px solid #E5E5E5;
-	padding-top: 15px;
-	padding-bottom: 15px;
 	padding-right: 20px;
 }
 
@@ -373,8 +371,6 @@ ol {
 	font-size: 14px;
 	color: #252525;
 	line-height: 27px;
-	padding-top: 15px;
-	padding-bottom: 12px;
 	padding-left: 20px;
 }
 
@@ -393,8 +389,6 @@ ol {
 	display: inline-block;
 	padding-left: 20px;
 	border-left: 1px solid #e5e5e5;
-	padding-top: 18px;
-	padding-bottom: 15px;
 }
 
 .header-top .ht-right .login-panel i {
@@ -403,15 +397,11 @@ ol {
 
 .header-top .ht-right .lan-selector {
 	float: right;
-	margin-top: 15px;
-	margin-bottom: 13px;
 }
 
 .header-top .ht-right .top-social {
 	float: right;
 	padding-right: 20px;
-	padding-top: 15px;
-	padding-bottom: 15px;
 	border-right: 1px solid #e5e5e5;
 }
 
@@ -421,9 +411,12 @@ ol {
 	display: inline-block;
 	margin-left: 15px;
 }
+.ht-left > div, .ht-right > div, .ht-right > a{
+	padding: 6px 0;
+}
 
 .inner-header {
-	padding: 39px 0;
+	padding: 10px 0;
 }
 
 .inner-header .logo {
@@ -820,14 +813,21 @@ ol {
 .slicknav_menu {
 	display: none;
 }
+nav.slicknav_nav.slicknav_hidden{
+	max-height: 0;
+}
+.slicknav_nav{
+	max-height: 100vh;
+	transition: 1s;
+}
 
 /*---------------------
   Hero Section
 -----------------------*/
 
 .hero-items .single-hero-items {
-	height: 625px;
-	padding-top: 210px;
+	height: 500px;
+	padding-top: 150px;
 }
 
 .hero-items .single-hero-items span {
@@ -1185,6 +1185,7 @@ ol {
 	border: 1px solid #e7ab3c;
 	border-bottom: 0;
 	height: 328px;
+	background-color: #fff;
 }
 
 .product-item .pi-pic img {
@@ -1706,7 +1707,7 @@ ol {
 
 .breadcrumb-text {
 	border-bottom: 1px solid #ebebeb;
-	padding: 15px 0;
+	padding: 5px 0;
 }
 
 .breadcrumb-text.product-more a:nth-child(1):after {
@@ -4334,6 +4335,9 @@ b.disabled.primary-btn.pd-cart {
 /* Small Device: 320px */
 
 @media only screen and (max-width: 479px) {
+	.header-top{
+		display: none;
+	}
 	.instagram-photo .insta-item {
 		width: 100%;
 	}

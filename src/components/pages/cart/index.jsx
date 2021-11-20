@@ -8,13 +8,15 @@ const Cart = ({ cart, cartActions }) => {
     var totalPrice = 0;
 
     !_.isEmpty(cart) && keysArr.forEach((key) => {
-        totalPrice += parseInt(cart[key].price * cart[key].qty);
+        let prodPrice = cart[key].price || cart[key].prices.sale_price;
+        totalPrice += parseInt(prodPrice * cart[key].qty);
     })
 
     const allCartQty = {};
     keysArr.forEach((key) => {
         allCartQty[key] = parseInt(cart[key].qty);
     })
+    console.log("Cart from cart",cart)
     return (
         <>
             {/* Shopping Cart Section Begin */}

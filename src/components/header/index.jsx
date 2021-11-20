@@ -2,6 +2,7 @@ import { Link, NavLink } from "react-router-dom";
 import _ from 'lodash';
 import parse from "html-react-parser";
 import { toast } from "react-toastify";
+import Menu from "./menu";
 const Header = ({ categories: cat, cart, cartActions, products, favourite, favActions }) => {
     const { updateQty } = cartActions;
     const { removeFromFav } = favActions;
@@ -12,16 +13,15 @@ const Header = ({ categories: cat, cart, cartActions, products, favourite, favAc
     var favTotalPrice = 0;
     !_.isEmpty(cart) && keysArr.forEach((key) => {
         let price = cart[key].prices?.sale_price || cart[key].price;
-        cartTotalPrice += parseInt((price / 100) * cart[key].qty);
+        cartTotalPrice += parseInt((price) * cart[key].qty);
     })
 
     const favProducts = products.data.filter((pr) => favourite.includes(pr.id));
     favProducts.forEach((pr) => {
         let price = pr.prices?.sale_price || pr.price;
 
-        favTotalPrice += (+price / 100);
+        favTotalPrice += (+price);
     })
-    console.log("favProducts price ", favTotalPrice);
     return (
         <div>
             {/* Header Section Begin */}
@@ -40,12 +40,12 @@ const Header = ({ categories: cat, cart, cartActions, products, favourite, favAc
                         </div>
                         <div className="ht-right">
                             <a href="/#" className="login-panel"><i className="fa fa-user" />Login</a>
-                            <div className="lan-selector">
+                            {/* <div className="lan-selector">
                                 <select className="language_drop" name="countries" id="countries" style={{ width: '300px' }}>
                                     <option value="yt" data-image="./assets/img/flag-1.jpg" data-imagecss="flag yt" data-title="English">English</option>
                                     <option value="yu" data-image="./assets/img/flag-2.jpg" data-imagecss="flag yu" data-title="Bangladesh">German </option>
                                 </select>
-                            </div>
+                            </div> */}
                             <div className="top-social">
                                 <a href="/#"><i className="ti-facebook" /></a>
                                 <a href="/#"><i className="ti-twitter-alt" /></a>
@@ -93,7 +93,7 @@ const Header = ({ categories: cat, cart, cartActions, products, favourite, favAc
                                                                             <img src={item.images[0].src} alt="" /></td>
                                                                         <td className="si-text">
                                                                             <div className="product-selected">
-                                                                                <p>₹{item.prices?.sale_price / 100 || item.price / 100}</p>
+                                                                                <p>₹{item.prices?.sale_price || item.price}</p>
                                                                                 <h6>{item.name}</h6>
                                                                             </div>
                                                                         </td>
@@ -214,25 +214,13 @@ const Header = ({ categories: cat, cart, cartActions, products, favourite, favAc
                                 </li>
                             </ul>
                         </nav>
-                        <div id="mobile-menu-wrap" />
+                        <div id="mobile-menu-wrap" >
+                            <Menu />
+                        </div>
                     </div>
                 </div>
             </header>
             {/* Header End */}
-            {/* Breadcrumb Section Begin */}
-            <div className="breacrumb-section">
-                <div className="container">
-                    <div className="row">
-                        <div className="col-lg-12">
-                            <div className="breadcrumb-text">
-                                <Link to="/"><i className="fa fa-home" /> Home</Link>
-                                <span>Shop</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {/* Breadcrumb Section Begin */}
         </div>
     );
 }

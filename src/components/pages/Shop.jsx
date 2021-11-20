@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import ProductCard from "components/common/products/card";
 import Sidebar from "../sidebar";
 import _ from "lodash";
@@ -31,6 +31,20 @@ function Shop({ products: { data: products, loading }, categories }) {
       : [];
   return (
     <>
+     {/* Breadcrumb Section Begin */}
+     <div className="breacrumb-section">
+        <div className="container">
+          <div className="row">
+            <div className="col-lg-12">
+              <div className="breadcrumb-text">
+                <Link to="/"><i className="fa fa-home" /> Home</Link>
+                <span>Shop</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* Breadcrumb Section Begin */}
       <section className="product-shop spad">
         <div className="container">
           <div className="row">

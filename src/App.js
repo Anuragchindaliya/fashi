@@ -21,6 +21,7 @@ import Favourite from "components/pages/favourite";
 import SingleProductSkeleton from "components/common/skeleton/singleProductSkeleton";
 import ShopSkeleton from "components/common/skeleton/shopSkeleton";
 import { favActions } from "actions/favourite.action";
+import ScrollToTop from "components/common/scrollToTop";
 
 function App(props) {
   const {
@@ -31,7 +32,7 @@ function App(props) {
     cart,
     cartActions,
     favourite,
-    favActions
+    favActions,
   } = props;
   useEffect(() => {
     props.productsFetch();
@@ -40,6 +41,7 @@ function App(props) {
   return (
     <>
       <Router>
+        <ScrollToTop />
         <Header
           categories={categories}
           cart={cart}
@@ -66,7 +68,11 @@ function App(props) {
             <Cart cart={cart} cartActions={cartActions} />
           </Route>
           <Route exact path="/fav">
-            <Favourite favActions={favActions} fav={favourite} allproducts={products}/>
+            <Favourite
+              favActions={favActions}
+              fav={favourite}
+              allproducts={products}
+            />
           </Route>
           <Route exact path="/skeleton">
             <SingleProductSkeleton />
@@ -114,7 +120,7 @@ const mapDispatchToProps = (dispatch) => {
     categoriesFetch: () => dispatch(categoriesFetch()),
     singleProductFetch: (slug) => dispatch(singleProductFetch(slug)),
     cartActions: bindActionCreators(cartActions, dispatch),
-    favActions:bindActionCreators(favActions,dispatch),
+    favActions: bindActionCreators(favActions, dispatch),
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(App);

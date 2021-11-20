@@ -48,7 +48,7 @@ const CartItem = ({ item, cartActions }) => {
                     <td className="cart-title first-row">
                         <h5>{item.name}</h5>
                     </td>
-                    <td className="p-price first-row">₹{item.price}</td>
+                    <td className="p-price first-row">₹{item.price || item.prices.sale_price}</td>
                     <td className="qua-col first-row">
                         <div className="quantity">
 
