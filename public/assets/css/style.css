@@ -531,7 +531,7 @@ ol {
 .inner-header .nav-right li.cart-icon:hover .cart-hover {
 	opacity: 1;
 	visibility: visible;
-	top: 60px;
+	top: 40px;
 }
 
 .inner-header .nav-right li.cart-icon a {
@@ -818,7 +818,12 @@ nav.slicknav_nav.slicknav_hidden{
 }
 .slicknav_nav{
 	max-height: 100vh;
-	transition: 1s;
+	transition: .5s;
+}
+ul.dropdown.slicknav_hidden {
+    max-height: 0;
+    transition: .5s;
+    /* max-height: 100vh; */
 }
 
 /*---------------------

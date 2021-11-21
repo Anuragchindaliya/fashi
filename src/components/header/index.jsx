@@ -139,7 +139,7 @@ const Header = ({ categories: cat, cart, cartActions, products, favourite, favAc
                                                                         <td className="si-pic" width="75px"><img src={item.images[0].src} alt="" /></td>
                                                                         <td className="si-text">
                                                                             <div className="product-selected">
-                                                                                <p>₹{item.prices?.sale_price / 100 || item.price / 100} Qty: {item.qty}</p>
+                                                                                <p>₹{item.prices?.sale_price || item.price} Qty: {item.qty}</p>
                                                                                 <h6>{item.name}</h6>
                                                                             </div>
                                                                         </td>
