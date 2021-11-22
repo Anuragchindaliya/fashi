@@ -22,6 +22,7 @@ import SingleProductSkeleton from "components/common/skeleton/singleProductSkele
 import ShopSkeleton from "components/common/skeleton/shopSkeleton";
 import { favActions } from "actions/favourite.action";
 import ScrollToTop from "components/common/scrollToTop";
+import MobileHeader from "components/header/mobileHeader";
 
 function App(props) {
   const {
@@ -50,6 +51,7 @@ function App(props) {
           products={products}
           favActions={favActions}
         />
+        <MobileHeader products={products} cart={cart} favourite={favourite} />
         <Switch>
           <Route exact path="/">
             <Home products={products} categories={categories} />

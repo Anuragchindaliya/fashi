@@ -5,7 +5,7 @@ const CounterSection = () => {
             {/* Deal Of The Week Section Begin*/}
             <section className="deal-of-week set-bg spad" style={{backgroundImage:'url("./assets/img/time-bg.jpg")'}} data-setbg="./assets/img/time-bg.jpg">
                 <div className="container">
-                    <div className="col-lg-6 text-center">
+                    <div className="col-lg-6  text-center">
                         <div className="section-title">
                             <h2>Deal Of The Week</h2>
                             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed<br /> do ipsum dolor sit amet,

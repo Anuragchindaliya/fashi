@@ -77,7 +77,7 @@ const CategoriesSlider = ({ products:{data, loading, error}, right, cats = [] })
                                     dragClass={"product-slider owl-carousel owl-loaded owl-drag"}
                                     navText={['<i class="ti-angle-left"></i>', '<i class="ti-angle-right"></i>']}
                                     nav
-                                    responsive={{ 0: { items: 1 }, 600: { items: 3 } }}
+                                    responsive={{ 0: { items: 2 }, 600: { items: 3 } }}
                                     lazyContent={false}
                                     key={sliderProducts.length}
                                 >

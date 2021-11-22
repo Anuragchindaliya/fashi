@@ -2,7 +2,7 @@ import { Link, NavLink } from "react-router-dom";
 import _ from 'lodash';
 import parse from "html-react-parser";
 import { toast } from "react-toastify";
-import Menu from "./menu";
+import Menu from "./mobileMenu";
 const Header = ({ categories: cat, cart, cartActions, products, favourite, favActions }) => {
     const { updateQty } = cartActions;
     const { removeFromFav } = favActions;
@@ -25,8 +25,8 @@ const Header = ({ categories: cat, cart, cartActions, products, favourite, favAc
     return (
         <div>
             {/* Header Section Begin */}
-            <header className="header-section">
-                <div className="header-top">
+            <header className="header-section bigHeader">
+                {/* <div className="header-top">
                     <div className="container">
                         <div className="ht-left">
                             <div className="mail-service">
@@ -40,12 +40,6 @@ const Header = ({ categories: cat, cart, cartActions, products, favourite, favAc
                         </div>
                         <div className="ht-right">
                             <a href="/#" className="login-panel"><i className="fa fa-user" />Login</a>
-                            {/* <div className="lan-selector">
-                                <select className="language_drop" name="countries" id="countries" style={{ width: '300px' }}>
-                                    <option value="yt" data-image="./assets/img/flag-1.jpg" data-imagecss="flag yt" data-title="English">English</option>
-                                    <option value="yu" data-image="./assets/img/flag-2.jpg" data-imagecss="flag yu" data-title="Bangladesh">German </option>
-                                </select>
-                            </div> */}
                             <div className="top-social">
                                 <a href="/#"><i className="ti-facebook" /></a>
                                 <a href="/#"><i className="ti-twitter-alt" /></a>
@@ -54,8 +48,8 @@ const Header = ({ categories: cat, cart, cartActions, products, favourite, favAc
                             </div>
                         </div>
                     </div>
-                </div>
-                <div className="container">
+                </div> */}
+                <div className="container-fluid container">
                     <div className="inner-header">
                         <div className="row">
                             <div className="col-lg-2 col-md-2">
@@ -69,7 +63,7 @@ const Header = ({ categories: cat, cart, cartActions, products, favourite, favAc
                                 <div className="advanced-search">
                                     <button type="button" className="category-btn">All Categories</button>
                                     <form action="#" className="input-group">
-                                        <input type="text" placeholder="What do you need?" />
+                                        <input type="text" placeholder="What do you need? BigScreen" />
                                         <button type="button"><i className="ti-search" /></button>
                                     </form>
                                 </div>
@@ -214,9 +208,6 @@ const Header = ({ categories: cat, cart, cartActions, products, favourite, favAc
                                 </li>
                             </ul>
                         </nav>
-                        <div id="mobile-menu-wrap" >
-                            <Menu />
-                        </div>
                     </div>
                 </div>
             </header>

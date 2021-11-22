@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import { Link, useLocation } from "react-router-dom";
 
-const Menu = () => {
+const MobileMenu = () => {
     const [isMenuOpen, setMenuOpen] = useState(false);
     const { pathname } = useLocation();
     // console.log(pathname);
@@ -32,10 +32,9 @@ const Menu = () => {
                         // console.log("nextElement ", nextEle);
                         if (nextEle) {
                             if (nextEle.classList.contains("slicknav_hidden")) {
-                                // menuItem.forEach(item => item.nextElementSibling.classList.remove("slicknav_hidden"));
+                                menuItem.forEach(item => item.nextElementSibling.classList.remove("slicknav_hidden"));
                                 nextEle.classList.remove("slicknav_hidden");
                             } else {
-
                                 nextEle.classList.add("slicknav_hidden");
                             }
                         }
@@ -57,8 +56,8 @@ const Menu = () => {
         <>
             <div className="slicknav_menu">
                 <b onClick={handleMenuStatus} aria-haspopup="true" role="button" tabIndex="0" className="btn slicknav_btn slicknav_collapsed">
-                    <span className="slicknav_menutxt">MENU</span>
-                    <span className="fa fa-menu"></span>
+                    {/* <span className="slicknav_menutxt">MENU</span> */}
+                    {/* <span className="fa fa-menu"></span> */}
                     <span className="slicknav_icon">
                         <span className="slicknav_icon-bar"></span>
                         <span className="slicknav_icon-bar"></span>
@@ -104,4 +103,4 @@ const Menu = () => {
     )
 }
 
-export default Menu
+export default MobileMenu;
