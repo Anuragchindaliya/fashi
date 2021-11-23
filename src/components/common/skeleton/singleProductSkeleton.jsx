@@ -27,13 +27,10 @@ const SingleProductSkeleton = () => {
                                     nav
                                     dragClass={"owl-drag ps-slider"}
                                 >
-                                    {Array(4).map((item, index) => {
-                                        console.log(item, index);
-                                        return (
-                                            <div key={index} className="item">
-                                                <GrayElement grayPropsStyles={{ "height": "100px", "borderRadius": "2px", "width": "100%", "margin": "0 10px" }} />
-                                            </div>)
-                                    })}
+                                    {[...Array(4)].map((item, index) => <div key={index} className="item">
+                                        <GrayElement grayPropsStyles={{ "height": "100px", "borderRadius": "2px", "width": "100%", "margin": "0 10px" }} />
+                                    </div>
+                                    )}
                                 </OwlCarousel>
                             </div>
                             <div className="col-lg-6">

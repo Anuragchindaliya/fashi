@@ -859,16 +859,16 @@ nav.slicknav_nav.slicknav_hidden {
   max-width: 0;
 }
 .slicknav_nav {
-	max-height: 100vh;
-    transition: 0.5s;
-    transition-timing-function: ease-out;
-    width: calc(100vw - 60px);
-    height: 100vh;
-    position: fixed;
-    z-index: 9;
-    left: 0;
-    top: 0;
-    max-width: 70%;
+  max-height: 100vh;
+  transition: 0.5s;
+  transition-timing-function: ease-out;
+  width: calc(100vw - 60px);
+  height: 100vh;
+  position: fixed;
+  z-index: 9;
+  left: 0;
+  top: 0;
+  max-width: 70%;
 }
 ul.dropdown.slicknav_hidden {
   max-height: 0;
@@ -1099,15 +1099,15 @@ ul.dropdown.slicknav_hidden {
   padding-right: 65px;
   padding-left: 65px;
   padding-top: 0;
-  padding-bottom: 80px;
+  padding-bottom: 30px;
 }
 
 .product-large {
-  height: 620px;
+  height: 450px;
   margin-left: -15px;
   margin-right: -15px;
   text-align: center;
-  padding-top: 285px;
+  padding-top: 175px;
 }
 
 .product-large h2 {
@@ -1192,7 +1192,7 @@ ul.dropdown.slicknav_hidden {
 
 .product-slider .owl-dots {
   text-align: center;
-  margin-top: 27px;
+  /* margin-top: 27px; */
 }
 
 .product-slider .owl-dots button {
@@ -1287,10 +1287,10 @@ ul.dropdown.slicknav_hidden {
   text-align: center;
   width: 100%;
 }
-@media only screen and (max-width:767px) {
-	.product-item .pi-pic ul{
-		display: none;
-	}
+@media only screen and (max-width: 767px) {
+  .product-item .pi-pic ul {
+    display: none;
+  }
 }
 
 .product-item .pi-pic ul li {
@@ -1339,7 +1339,7 @@ ul.dropdown.slicknav_hidden {
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-  font-size:14px;
+  font-size: 14px;
 }
 
 .product-item .pi-text .product-price {
@@ -4144,7 +4144,7 @@ b.disabled.primary-btn.pd-cart {
     padding: 45px 0;
   }
   .single-banner {
-    margin-bottom: 30px;
+    margin-bottom: 10px;
   }
   .women-banner {
     padding-right: 0;
@@ -4538,6 +4538,9 @@ b.disabled.primary-btn.pd-cart {
   .bigHeader.header-section {
     display: none;
   }
+  .row.scrollable::-webkit-scrollbar {
+    height: 3px !important;
+  }
 }
 @media screen and (min-width: 768px) {
   .bigHeader.header-section {
@@ -4545,6 +4548,9 @@ b.disabled.primary-btn.pd-cart {
   }
   .mobile-header.header-section {
     display: none;
+  }
+  .product-item .pi-text .product-price {
+    font-size: 22px;
   }
 }
 .slicknav_menu .slicknav_icon {
@@ -4562,19 +4568,60 @@ b.disabled.primary-btn.pd-cart {
 
 /* Herocard scrollabe effects */
 .row.scrollable {
-    flex-direction: row;
-    flex-wrap: unset;
-    max-width: 100%;
-    overflow: scroll;
-	margin: unset;
+  flex-direction: row;
+  flex-wrap: unset;
+  max-width: 100%;
+  overflow: scroll;
+  margin: unset;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+}
+.row.scrollable > div {
+  scroll-snap-align: start;
+}
+.row.scrollable::-webkit-scrollbar {
+  height: 10px;
+  position: relative;
+  top: 0;
+  scrollbar-gutter: stable both-edges;
+}
+
+/* Track
+.row.scrollable::-webkit-scrollbar-track {
+  background: #252525;
+} */
+
+/* Handle */
+.row.scrollable::-webkit-scrollbar-thumb {
+  background: #e7ab3c;
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+.row.scrollable::-webkit-scrollbar-thumb:hover {
+  background: #c98d1e;
 }
 /* .scrollable .col-8:first-child {
     padding-left: 0;
 } */
 .scrollable .col-8:last-child {
-    margin-right: 0;
+  margin-right: 0;
 }
-.scrollable .col-8{
-	padding:0;
-	margin-right:10px;
+.scrollable .col-8 {
+  padding: 0;
+  margin-right: 10px;
+}
+
+.closeBtn {
+  position: absolute;
+  right: 14px;
+  top: 4px;
+  padding: 4px 11px 5px 11px;
+  background: #df9a1b;
+  border-radius: 16px;
+}
+.slicknav_nav li,
+.slicknav_nav ul {
+  display: block;
+  font-size: 16px;
 }

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import _, { debounce } from 'lodash';
 import MobileMenu from "./mobileMenu";
+import { searchProduct } from "services/api";
 const MobileHeader = ({ cart, favourite }) => {
 
     const keysArr = Object.keys(cart);
@@ -14,11 +15,17 @@ const MobileHeader = ({ cart, favourite }) => {
     useEffect(() => {
         console.log(searchTerm);
     }, [searchTerm])
-    const searchQuery = () => {
-        if(searchTerm.length<3){
+
+    const [searchResult,setSearchResult]=useState([]);
+    const searchQuery = async () => {
+        if (searchTerm.length < 3) {
             console.log("Please write correct query")
-        }else{
-            // fetch()
+        } else {
+            
+            const result = await searchProduct(searchTerm);
+            console.log(result);
+            debugger;
+            setSearchResult(result);
             console.log("ok")
         }
     }

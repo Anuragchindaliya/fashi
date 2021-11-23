@@ -32,7 +32,6 @@ store.subscribe(() => {
 });
 
 sagaMiddleware.run(saga);
-
 ReactDOM.render(
   <Provider store={store}>
     <App />

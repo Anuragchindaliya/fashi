@@ -2,6 +2,7 @@ import {apiTypeCreator} from 'utils';
 export const categoriesTypes = apiTypeCreator('CATEGORIES');
 export const productsTypes = apiTypeCreator('PRODUCTS');
 export const singleProductTypes = apiTypeCreator('SINGLE_PRODUCT');
+export const searchProductsTypes = apiTypeCreator('SEARCH_PODUCTS')
 
 export const favouriteProductTypes = {
     ADD_TO_FAV: 'ADD_TO_FAV',

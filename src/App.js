@@ -23,6 +23,7 @@ import ShopSkeleton from "components/common/skeleton/shopSkeleton";
 import { favActions } from "actions/favourite.action";
 import ScrollToTop from "components/common/scrollToTop";
 import MobileHeader from "components/header/mobileHeader";
+import searchProductActions from "actions/searchProducts.action";
 
 function App(props) {
   const {
@@ -114,6 +115,7 @@ const mapStateToProps = (state) => {
     singleProduct: state.singleProduct,
     cart: state.cart,
     favourite: state.favourite,
+    searchResult: state.searchResult
   };
 };
 const mapDispatchToProps = (dispatch) => {
@@ -123,6 +125,7 @@ const mapDispatchToProps = (dispatch) => {
     singleProductFetch: (slug) => dispatch(singleProductFetch(slug)),
     cartActions: bindActionCreators(cartActions, dispatch),
     favActions: bindActionCreators(favActions, dispatch),
+    searchActions: bindActionCreators(searchProductActions,dispatch),
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(App);

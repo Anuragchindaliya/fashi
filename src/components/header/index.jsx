@@ -1,4 +1,4 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import _ from 'lodash';
 import parse from "html-react-parser";
 import { toast } from "react-toastify";
@@ -22,6 +22,8 @@ const Header = ({ categories: cat, cart, cartActions, products, favourite, favAc
 
         favTotalPrice += (+price);
     })
+    const { pathname } = useLocation()
+
     return (
         <div>
             {/* Header Section Begin */}
@@ -155,12 +157,10 @@ const Header = ({ categories: cat, cart, cartActions, products, favourite, favAc
                                                     <h5>₹{cartTotalPrice}</h5>
                                                 </div>
                                                 <div className="select-button">
-                                                    <Link to="/cart" className="primary-btn view-card">VIEW CART</Link>
+                                                   {pathname === "/cart" && <Link to="/cart" className="primary-btn view-card">VIEW CART</Link>}
                                                     <a href="/#" className="primary-btn checkout-btn">CHECK OUT</a>
                                                 </div>
                                             </div> : <div>No Items Added</div>}
-
-                                            { }
                                         </div>
                                     </li>
                                     <li className="cart-price">₹{cartTotalPrice}</li>
@@ -199,8 +199,8 @@ const Header = ({ categories: cat, cart, cartActions, products, favourite, favAc
                                 <li><a href="/#">Pages</a>
                                     <ul className="dropdown">
                                         <li><a href="./blog-details.html">Blog Details</a></li>
-                                        <li><a href="./shopping-cart.html">Shopping Cart</a></li>
-                                        <li><a href="./check-out.html">Checkout</a></li>
+                                        <li><Link to="/shop">Shopping Cart</Link></li>
+                                        <li><Link to="/checkout">Checkout</Link></li>
                                         <li><a href="./faq.html">Faq</a></li>
                                         <li><a href="./register.html">Register</a></li>
                                         <li><a href="./login.html">Login</a></li>

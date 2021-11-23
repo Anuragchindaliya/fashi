@@ -66,7 +66,12 @@ const MobileMenu = () => {
                 </b>
                 <nav className={`slicknav_nav ${isMenuOpen ? "" : "slicknav_hidden"}`} aria-hidden="true" role="menu">
                     <ul>
-                        <li className="active"><Link to="/" role="menuitem">Home</Link></li>
+                        <li>
+                            <span className="closeBtn" onClick={handleMenuStatus}>x</span>
+                            <Link  style={{ background: "#e7ab3c" }}
+                            >Back</Link>
+                        </li>
+                        <li><Link to="/" role="menuitem">Home</Link></li>
                         <li><Link to="/shop" role="menuitem">Shop</Link></li>
                         <li className="slicknav_collapsed slicknav_parent">
                             <a href="/#" role="menuitem" aria-haspopup="true" tabIndex="-1" className="slicknav_item slicknav_row">

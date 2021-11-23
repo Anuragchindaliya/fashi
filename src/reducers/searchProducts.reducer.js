@@ -1,9 +1,12 @@
-import { productsTypes } from "types";
-const { FETCH, SUCCESS, ERROR, RESET } = productsTypes;
+import { searchProductsTypes } from "types";
+
+const { FETCH, SUCCESS, ERROR, RESET } = searchProductsTypes;
+
 const initialState = {
   data: [],
   loading: false,
   error: "",
+  searchTerm: "",
 };
 const reducer = (state = initialState, action) => {
   const { type, payload } = action;
@@ -11,11 +14,11 @@ const reducer = (state = initialState, action) => {
     case FETCH:
       return { ...state, loading: true };
     case SUCCESS:
-      return { data: payload, loading: false, error: "" };
+      return { data: payload, loading: false };
     case ERROR:
-      return { ...state, loading: false, error: payload };
+      return { ...state, error: payload };
     case RESET:
-      return { ...initialState };
+      return state;
     default:
       return state;
   }
