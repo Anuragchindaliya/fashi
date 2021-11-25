@@ -34,7 +34,7 @@ export const productBySlug = async (slug) => {
 };
 export const searchProduct = async (query) => {
   return await axios
-    .get(`https://shop.mohitele.com/wp-json/wc/v3/products?search=${query}`, {
+    .get(`https://shop.mohitele.com/wp-json/wc/store/products?search=${query}`, {
       auth: auth,
     })
     .then((response) => response.data)

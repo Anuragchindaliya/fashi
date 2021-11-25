@@ -1,33 +1,27 @@
-import { useEffect, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
-import _, { debounce } from 'lodash';
+import { Link, NavLink, useHistory } from "react-router-dom";
+import _ from 'lodash';
 import MobileMenu from "./mobileMenu";
-import { searchProduct } from "services/api";
-const MobileHeader = ({ cart, favourite }) => {
-
+import { getTotalPrice } from "utils";
+const MobileHeader = ({ cart, favourite, searchActions }) => {
+    const { searchProductsFetch } = searchActions;
     const keysArr = Object.keys(cart);
-    var cartTotalPrice = 0;
-    !_.isEmpty(cart) && keysArr.forEach((key) => {
-        let price = cart[key].prices?.sale_price || cart[key].price;
-        cartTotalPrice += parseInt((price) * cart[key].qty);
-    })
-    const [searchTerm, setSearchTerm] = useState("");
-    useEffect(() => {
-        console.log(searchTerm);
-    }, [searchTerm])
-
-    const [searchResult,setSearchResult]=useState([]);
-    const searchQuery = async () => {
-        if (searchTerm.length < 3) {
-            console.log("Please write correct query")
-        } else {
-            
-            const result = await searchProduct(searchTerm);
-            console.log(result);
-            debugger;
-            setSearchResult(result);
-            console.log("ok")
-        }
+    const cartTotalPrice = getTotalPrice(cart);
+    const history = useHistory();
+    var handleSearchInput = () => {
+        return _.debounce((event) => {
+            if (event.target.value.length>2) {
+                searchProductsFetch(event.target.value);
+                history.push("/search");
+            }
+        }, 1000);
+    }
+    const searchQuery = () => {
+        debugger;
+        const searchTerm = document.getElementById('search').value;
+        if(searchTerm.length>2){
+            searchProductsFetch(searchTerm);
+            history.push("/search");
+        } 
     }
 
     return (
@@ -64,13 +58,11 @@ const MobileHeader = ({ cart, favourite }) => {
                                 <li className="cart-price">₹{cartTotalPrice}</li>
                             </ul>
                         </div>
-
-
                         <div className="col-lg-7 col-md-7 mb-3">
                             <div className="advanced-search">
                                 <button type="button" className="category-btn">All Categories</button>
                                 <form action="#" className="input-group">
-                                    <input type="text" placeholder="What do you need? Mobile header" onChange={e => setSearchTerm(e.target.value)} />
+                                    <input type="text" placeholder="What do you need? Mobile header" onChange={handleSearchInput()} id='search' />
                                     <button type="button" onClick={searchQuery}><i className="ti-search" /></button>
                                 </form>
                             </div>

@@ -30,7 +30,7 @@ const Favourite = ({ favActions, fav, allproducts }) => {
                             <div className="row">
                                 {finalProduct.map((pr, index) => {
                                     return (
-                                        <div key={index} className="col-lg-4 col-sm-6">
+                                        <div key={index} className="col-lg-4 col-sm-6 col-6">
                                             <ProductCard product={pr} favourite={fav} />
                                         </div>
                                     );

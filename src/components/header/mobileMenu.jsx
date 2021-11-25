@@ -38,19 +38,11 @@ const MobileMenu = () => {
                                 nextEle.classList.add("slicknav_hidden");
                             }
                         }
-
-
                     }, true)
                 }
                 );
             }
         }
-
-        // if (menuItem) {
-        //     menuItem.addEventListener("click", (e) => {
-        //         console.log(e);
-        //     })
-        // }
     }
     return (
         <>
@@ -68,8 +60,8 @@ const MobileMenu = () => {
                     <ul>
                         <li>
                             <span className="closeBtn" onClick={handleMenuStatus}>x</span>
-                            <Link  style={{ background: "#e7ab3c" }}
-                            >Back</Link>
+                            <a href="/#" onClick={handleMenuStatus} style={{ background: "#e7ab3c" }}
+                            >Back</a>
                         </li>
                         <li><Link to="/" role="menuitem">Home</Link></li>
                         <li><Link to="/shop" role="menuitem">Shop</Link></li>

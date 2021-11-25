@@ -1,6 +1,6 @@
 import { searchProductsTypes } from "types";
 
-const { FETCH, SUCCESS, ERROR, RESET } = searchProductsTypes;
+const { FETCH, SUCCESS, ERROR, RESET, UPDATE_SEARCH_TERM } = searchProductsTypes;
 
 const initialState = {
   data: [],
@@ -19,6 +19,8 @@ const reducer = (state = initialState, action) => {
       return { ...state, error: payload };
     case RESET:
       return state;
+    case UPDATE_SEARCH_TERM:
+      return {...state, searchTerm: payload}
     default:
       return state;
   }

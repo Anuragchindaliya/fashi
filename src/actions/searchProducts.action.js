@@ -1,37 +1,46 @@
 const { searchProductsTypes } = require("types");
 
-const { FETCH, SUCCESS, ERROR, RESET } = searchProductsTypes;
+const { FETCH, SUCCESS, ERROR, RESET, UPDATE_SEARCH_TERM } = searchProductsTypes;
 
-const searchProductsFetch = () => {
+export const searchProductsFetch = (val) => {
   return {
     type: FETCH,
+    payload: val
   };
 };
 
-const searchProductsSuccess = (val) => {
+export const searchProductsSuccess = (val) => {
   return {
     type: SUCCESS,
     payload: val,
   };
 };
 
-const searchProductsError = (val) => {
+export const searchProductsError = (val) => {
   return {
     type: ERROR,
     payload: val,
   };
 };
 
-const searchProductsReset = () => {
+export const searchProductsReset = () => {
   return {
     type: RESET,
   };
 };
 
-const searchProductActions = {
+export const updateSearchTerm = (val) => {
+  return {
+    type: UPDATE_SEARCH_TERM,
+    payload: val
+  };
+};
+
+const searchProductsActions = {
   searchProductsFetch,
   searchProductsSuccess,
   searchProductsError,
   searchProductsReset,
+  updateSearchTerm
 };
-export default searchProductActions;
+export default searchProductsActions;

@@ -5,15 +5,11 @@ import Sidebar from "../sidebar";
 import _ from "lodash";
 import ShopSkeleton from "components/common/skeleton/shopSkeleton";
 
-function Shop({ products: { data: products, loading }, categories }) {
+function Shop({ products: { data: products, loading }, categories, searchActions }) {
   const [allproducts, setAllProducts] = useState([]);
   const { slug } = useParams();
   const catSlug = slug ? slug.toLowerCase() : "";
-  useEffect(() => {
-    if (!_.isEmpty(products)) {
-      setAllProducts(products);
-    }
-  }, [products]);
+  const { searchProductsReset } = searchActions;
 
   const finalProducts =
     allproducts.length > 0
@@ -29,10 +25,19 @@ function Shop({ products: { data: products, loading }, categories }) {
         })
         : products
       : [];
+  useEffect(() => {
+    if (!_.isEmpty(products)) {
+      setAllProducts(products);
+    }
+  }, [products]);
+
+  useEffect(() => {
+    return () => searchProductsReset()
+  }, []);
   return (
     <>
-     {/* Breadcrumb Section Begin */}
-     <div className="breacrumb-section">
+      {/* Breadcrumb Section Begin */}
+      <div className="breacrumb-section">
         <div className="container">
           <div className="row">
             <div className="col-lg-12">

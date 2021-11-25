@@ -23,7 +23,7 @@ import ShopSkeleton from "components/common/skeleton/shopSkeleton";
 import { favActions } from "actions/favourite.action";
 import ScrollToTop from "components/common/scrollToTop";
 import MobileHeader from "components/header/mobileHeader";
-import searchProductActions from "actions/searchProducts.action";
+import searchProductsActions from "actions/searchProducts.action";
 
 function App(props) {
   const {
@@ -35,11 +35,15 @@ function App(props) {
     cartActions,
     favourite,
     favActions,
+    searchResult,
+    searchActions
   } = props;
+ 
   useEffect(() => {
     props.productsFetch();
     props.categoriesFetch();
   }, []);
+  
   return (
     <>
       <Router>
@@ -52,7 +56,7 @@ function App(props) {
           products={products}
           favActions={favActions}
         />
-        <MobileHeader products={products} cart={cart} favourite={favourite} />
+        <MobileHeader products={products} cart={cart} favourite={favourite} searchActions={searchActions} searchResult={searchResult} />
         <Switch>
           <Route exact path="/">
             <Home products={products} categories={categories} />
@@ -62,6 +66,15 @@ function App(props) {
               products={products}
               categories={categories}
               cartActions={cartActions}
+              searchActions={searchActions}
+            />
+          </Route>
+          <Route exact path="/search">
+            <Shop
+              products={searchResult}
+              categories={categories}
+              cartActions={cartActions}
+              searchActions={searchActions}
             />
           </Route>
           <Route exact path="/category/:slug">
@@ -125,7 +138,7 @@ const mapDispatchToProps = (dispatch) => {
     singleProductFetch: (slug) => dispatch(singleProductFetch(slug)),
     cartActions: bindActionCreators(cartActions, dispatch),
     favActions: bindActionCreators(favActions, dispatch),
-    searchActions: bindActionCreators(searchProductActions,dispatch),
+    searchActions: bindActionCreators(searchProductsActions,dispatch),
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(App);
