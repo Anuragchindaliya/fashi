@@ -1,29 +1,12 @@
-import { Link, NavLink, useHistory } from "react-router-dom";
-import _ from 'lodash';
+import { Link, NavLink } from "react-router-dom";
+
 import MobileMenu from "./mobileMenu";
 import { getTotalPrice } from "utils";
+import Searchbar from "./Searchbar";
+
 const MobileHeader = ({ cart, favourite, searchActions }) => {
-    const { searchProductsFetch } = searchActions;
     const keysArr = Object.keys(cart);
     const cartTotalPrice = getTotalPrice(cart);
-    const history = useHistory();
-    var handleSearchInput = () => {
-        return _.debounce((event) => {
-            if (event.target.value.length>2) {
-                searchProductsFetch(event.target.value);
-                history.push("/search");
-            }
-        }, 1000);
-    }
-    const searchQuery = () => {
-        debugger;
-        const searchTerm = document.getElementById('search').value;
-        if(searchTerm.length>2){
-            searchProductsFetch(searchTerm);
-            history.push("/search");
-        } 
-    }
-
     return (
         <header className="header-section mobile-header stickToTop">
             {/* Header Section Begin */}
@@ -59,13 +42,7 @@ const MobileHeader = ({ cart, favourite, searchActions }) => {
                             </ul>
                         </div>
                         <div className="col-lg-7 col-md-7 mb-3">
-                            <div className="advanced-search">
-                                <button type="button" className="category-btn">All Categories</button>
-                                <form action="#" className="input-group">
-                                    <input type="text" placeholder="What do you need? Mobile header" onChange={handleSearchInput()} id='search' />
-                                    <button type="button" onClick={searchQuery}><i className="ti-search" /></button>
-                                </form>
-                            </div>
+                            <Searchbar searchActions={searchActions} />
                         </div>
                     </div>
                 </div>

@@ -1,56 +1,30 @@
 import { Link, NavLink, useLocation } from "react-router-dom";
-import _ from 'lodash';
 import parse from "html-react-parser";
 import { toast } from "react-toastify";
-import Menu from "./mobileMenu";
-const Header = ({ categories: cat, cart, cartActions, products, favourite, favActions }) => {
+import { getTotalPrice } from "utils";
+import Searchbar from "./Searchbar";
+const Header = ({ categories: cat, cart, cartActions, products, favourite, favActions, searchActions }) => {
+
+    const { pathname } = useLocation();
+
     const { updateQty } = cartActions;
     const { removeFromFav } = favActions;
-
     const { data: categories } = cat;
-    const keysArr = Object.keys(cart);
-    var cartTotalPrice = 0;
-    var favTotalPrice = 0;
-    !_.isEmpty(cart) && keysArr.forEach((key) => {
-        let price = cart[key].prices?.sale_price || cart[key].price;
-        cartTotalPrice += parseInt((price) * cart[key].qty);
-    })
 
+    const cartTotalPrice = getTotalPrice(cart);
+    const keysArr = Object.keys(cart);
+    //GET TOTAL FAVOURITE PPDUCT PRICE
+    var favTotalPrice = 0;
     const favProducts = products.data.filter((pr) => favourite.includes(pr.id));
     favProducts.forEach((pr) => {
         let price = pr.prices?.sale_price || pr.price;
-
         favTotalPrice += (+price);
     })
-    const { pathname } = useLocation()
 
     return (
         <div>
             {/* Header Section Begin */}
             <header className="header-section bigHeader">
-                {/* <div className="header-top">
-                    <div className="container">
-                        <div className="ht-left">
-                            <div className="mail-service">
-                                <i className=" fa fa-envelope" />
-                                web2rise@gmail.com
-                            </div>
-                            <div className="phone-service">
-                                <i className=" fa fa-phone" />
-                                +91 8010334416
-                            </div>
-                        </div>
-                        <div className="ht-right">
-                            <a href="/#" className="login-panel"><i className="fa fa-user" />Login</a>
-                            <div className="top-social">
-                                <a href="/#"><i className="ti-facebook" /></a>
-                                <a href="/#"><i className="ti-twitter-alt" /></a>
-                                <a href="/#"><i className="ti-linkedin" /></a>
-                                <a href="/#"><i className="ti-pinterest" /></a>
-                            </div>
-                        </div>
-                    </div>
-                </div> */}
                 <div className="container-fluid container">
                     <div className="inner-header">
                         <div className="row">
@@ -62,13 +36,7 @@ const Header = ({ categories: cat, cart, cartActions, products, favourite, favAc
                                 </div>
                             </div>
                             <div className="col-lg-7 col-md-7">
-                                <div className="advanced-search">
-                                    <button type="button" className="category-btn">All Categories</button>
-                                    <form action="#" className="input-group">
-                                        <input type="text" placeholder="What do you need? BigScreen" />
-                                        <button type="button"><i className="ti-search" /></button>
-                                    </form>
-                                </div>
+                                <Searchbar searchActions={searchActions} />
                             </div>
                             <div className="col-lg-3 text-right col-md-3">
                                 <ul className="nav-right">
@@ -157,7 +125,7 @@ const Header = ({ categories: cat, cart, cartActions, products, favourite, favAc
                                                     <h5>₹{cartTotalPrice}</h5>
                                                 </div>
                                                 <div className="select-button">
-                                                   {pathname === "/cart" && <Link to="/cart" className="primary-btn view-card">VIEW CART</Link>}
+                                                    {pathname !== "/cart" && <Link to="/cart" className="primary-btn view-card">VIEW CART</Link>}
                                                     <a href="/#" className="primary-btn checkout-btn">CHECK OUT</a>
                                                 </div>
                                             </div> : <div>No Items Added</div>}
@@ -183,7 +151,7 @@ const Header = ({ categories: cat, cart, cartActions, products, favourite, favAc
                                 </ul>
                             </div>
                         </div>
-                        <nav className="nav-menu mobile-menu">
+                        <nav className="nav-menu">
                             <ul>
                                 <li><NavLink to="/">Home</NavLink></li>
                                 <li><NavLink to="/shop">Shop</NavLink></li>

@@ -48,6 +48,7 @@ function App(props) {
     <>
       <Router>
         <ScrollToTop />
+        {/* big screen header */}
         <Header
           categories={categories}
           cart={cart}
@@ -55,8 +56,9 @@ function App(props) {
           cartActions={cartActions}
           products={products}
           favActions={favActions}
+          searchActions={searchActions}
         />
-        <MobileHeader products={products} cart={cart} favourite={favourite} searchActions={searchActions} searchResult={searchResult} />
+        <MobileHeader products={products} cart={cart} favourite={favourite} searchActions={searchActions} />
         <Switch>
           <Route exact path="/">
             <Home products={products} categories={categories} />
