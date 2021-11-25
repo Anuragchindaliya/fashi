@@ -14,21 +14,33 @@ const Searchbar = ({ searchActions }) => {
         }, 1000);
     }
     const searchQuery = () => {
-        debugger;
         const searchTerm = document.getElementById('search').value;
         if (searchTerm.length > 2) {
             searchProductsFetch(searchTerm);
             history.push("/search");
         }
     }
+
+    const handleEnterKey = (e) => {
+        if (e.keyCode === 13) {
+            const searchTerm = document.getElementById('search').value;
+            if (searchTerm.length > 2) {
+                console.log("clicked");
+                searchProductsFetch(searchTerm);
+                history.push("/search");
+            }
+            
+        }
+
+    }
     return (
         <>
             <div className="advanced-search">
                 <button type="button" className="category-btn">All Categories</button>
-                <form action="#" className="input-group">
-                    <input type="text" placeholder="What do you need?" onChange={handleSearchInput()} id='search' />
+                <div className="input-group">
+                    <input type="text" placeholder="What do you need?" onChange={handleSearchInput()} onKeyDown={handleEnterKey} id='search' />
                     <button type="button" onClick={searchQuery}><i className="ti-search" /></button>
-                </form>
+                </div>
             </div>
         </>
     )

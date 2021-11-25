@@ -16,7 +16,7 @@ const store = createStore(
   reducer,
   compose(
     applyMiddleware(sagaMiddleware),
-    window.devToolsExtension && window.devToolsExtension()
+    // window.devToolsExtension && window.devToolsExtension()
   )
 );
 

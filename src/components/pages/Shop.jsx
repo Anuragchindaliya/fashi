@@ -70,8 +70,10 @@ function Shop({ products: { data: products, loading }, categories, searchActions
                         </div>
                       </div>
                       <div className="col-lg-5 col-md-5 text-right">
-                        <p>Show 01- 09 Of 36 Product</p>
+                        {/* {finalProducts.length > 0 ? <p>Show 01- 09 Of {finalProducts.length} Product</p> : "No result"} */}
+                        {finalProducts.length > 0 ? <p>Show 01 - {finalProducts.length < 10 ? `0${finalProducts.length}` : finalProducts.length} Product</p> : "No result"}
                       </div>
+
                     </div>
                   </div>
                   <div className="product-list">
