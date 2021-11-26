@@ -4,6 +4,7 @@ import Searchbar from "./Searchbar";
 import CallToActions from "./cta";
 const Header = ({ categories: cat, cart, cartActions, products, favourite, favActions, searchActions }) => {
     const { data: categories } = cat;
+    console.log("from header ",categories);
     return (
         <div>
             {/* Header Section Begin */}
@@ -19,7 +20,7 @@ const Header = ({ categories: cat, cart, cartActions, products, favourite, favAc
                                 </div>
                             </div>
                             <div className="col-lg-7 col-md-7">
-                                <Searchbar searchActions={searchActions} />
+                                <Searchbar searchActions={searchActions} categories={categories} />
                             </div>
                             <div className="col-lg-3 text-right col-md-3">
                                 <CallToActions products={products} favourite={favourite} favActions={favActions} cart={cart} cartActions={cartActions} />

@@ -32,9 +32,13 @@ export const productBySlug = async (slug) => {
     .catch((err) => Promise.reject(err.message))
     .then((res) => res);
 };
-export const searchProduct = async (query) => {
+export const searchProduct = async (params) => {
+  let paramString = ``;
+  const { search, category } = params;
+  paramString += search && "search=" + search + "&";
+  paramString += category !== "0" && "category=" + category + "&";
   return await axios
-    .get(`https://shop.mohitele.com/wp-json/wc/store/products?search=${query}`, {
+    .get(`https://shop.mohitele.com/wp-json/wc/store/products?${paramString}`, {
       auth: auth,
     })
     .then((response) => response.data)

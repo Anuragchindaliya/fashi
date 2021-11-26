@@ -13,7 +13,6 @@ import Header from "./components/header";
 import Shop from "./components/pages/Shop";
 import SingleProducts from "./components/pages/SingleProduct";
 import Home from "./components/pages/Home";
-import Dummy from "components/common/dummy";
 
 import Cart from "components/pages/cart";
 import { ToastContainer } from "react-toastify";
@@ -49,6 +48,7 @@ function App(props) {
       <Router>
         <ScrollToTop />
         {/* big screen header */}
+        <MobileHeader products={products} cart={cart} favourite={favourite} searchActions={searchActions} />
         <Header
           categories={categories}
           cart={cart}
@@ -58,7 +58,7 @@ function App(props) {
           favActions={favActions}
           searchActions={searchActions}
         />
-        <MobileHeader products={products} cart={cart} favourite={favourite} searchActions={searchActions} />
+        
         <Switch>
           <Route exact path="/">
             <Home products={products} categories={categories} />
@@ -80,7 +80,7 @@ function App(props) {
             />
           </Route>
           <Route exact path="/category/:slug">
-            <Shop products={products} categories={categories} />
+            <Shop products={products} categories={categories} searchActions={searchActions} />
           </Route>
           <Route exact path="/cart">
             <Cart cart={cart} cartActions={cartActions} />
@@ -107,10 +107,10 @@ function App(props) {
               cartActions={cartActions}
             />
           </Route>
-          <Route exact path="/:cat">
+          {/* <Route exact path="/:cat">
             <Dummy products={products} categories={categories} />
-            {/* <Shop products={products} categories={categories} /> */}
-          </Route>
+            <Shop products={products} categories={categories} />
+          </Route> */}
           {/* <Route path="/:cat/:product">
             <Dummy />
           </Route> */}

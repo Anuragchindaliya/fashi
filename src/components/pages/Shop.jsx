@@ -78,19 +78,20 @@ function Shop({ products: { data: products, loading }, categories, searchActions
                   </div>
                   <div className="product-list">
                     <div className="row">
-                      {finalProducts.map((el, index) => {
+                      {finalProducts.length > 0 ? finalProducts.map((el, index) => {
                         return (
                           <div key={index} className="col-lg-4 col-sm-6">
                             <ProductCard product={el} />
                           </div>
                         );
-                      })}
+                      }) : <><img src={"assets/img/cat.png"} style={{ margin: "auto" }} /></>
+                      }
                     </div>
                   </div>
-                  <div className="loading-more">
+                  {/* <div className="loading-more">
                     <i className="icon_loading" />
                     <a href="/#">Loading More</a>
-                  </div>
+                  </div> */}
                 </div>
               )
             }

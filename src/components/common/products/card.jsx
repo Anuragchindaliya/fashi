@@ -3,11 +3,11 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
-import parse from 'html-react-parser'
+// import parse from 'html-react-parser'
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { favActions } from 'actions/favourite.action';
-import ProductCardSk from '../skeleton/productCardSk';
+// import ProductCardSk from '../skeleton/productCardSk';
 
 const ProductCard = ({ product: el, cartActions, cart, favActions, favourite }) => {
     const [isCartStatus, setCartStatus] = useState(true);
@@ -19,7 +19,7 @@ const ProductCard = ({ product: el, cartActions, cart, favActions, favourite }) 
     }, [cart, el.id]);
 
     const { addToCart, updateQty } = cartActions;
-    const { addToFav, removeFromFav, resetFav } = favActions;
+    const { addToFav, removeFromFav } = favActions;
 
     const handleCartStatus = () => {
         if (isCartStatus) {
@@ -36,7 +36,7 @@ const ProductCard = ({ product: el, cartActions, cart, favActions, favourite }) 
         // setFavStatus(Object.keys(favourite).includes(el.id));
         if (favourite.includes(el.id)) {
             setFavStatus(true);
-        }else{
+        } else {
             setFavStatus(false);
         }
     }, [favourite])
@@ -44,10 +44,10 @@ const ProductCard = ({ product: el, cartActions, cart, favActions, favourite }) 
     const handleFavStatus = () => {
         if (isFavStatus) {
             removeFromFav(el.id);
-            toast.success(`${el.name.substr(0,40)} Removed to Fav`, { position: "top-right" })
+            toast.success(`${el.name.substr(0, 40)} Removed to Fav`, { position: "top-right" })
         } else {
             addToFav(el.id)
-            toast.success(`${el.name.substr(0,40)} Added to Fav`, { position: "top-right" })
+            toast.success(`${el.name.substr(0, 40)} Added to Fav`, { position: "top-right" })
         }
     }
     return (
@@ -55,7 +55,7 @@ const ProductCard = ({ product: el, cartActions, cart, favActions, favourite }) 
             <div className="product-item">
                 <div className="pi-pic">
                     <Link to={{ pathname: `${new URL(el.permalink).pathname}`, state: el }} onClick={(e) => e.stopPropagation()} >
-                        <img src={el.images.length > 0 ? el.images[0].src : ''} alt="" onLoad={() => {setImageLoaded(true) }} />
+                        <img src={el.images.length > 0 ? el.images[0].src : ''} alt="" onLoad={() => { setImageLoaded(true) }} />
                     </Link>
                     {el.on_sale && <div className="sale pp-sale">Sale</div>}
                     {

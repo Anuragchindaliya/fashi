@@ -46,5 +46,19 @@ create initial state object/array whatever type you want of initial state
 
 Create function with name of e.g. mapDispatchToProps which take parameter is dispatch for dispatching actions,
  mapDistpatchToProps function will return object to props with the help of connect function which is imported from redux. connect is currying function which takes first two parameter first is for state and second for dispatching actions and then second component name 
+ 
+ After that you will recieve your all action and state in component from props
+
+ then pass the action to your components and call from there 
+ Reducer and Saga are listening to that action bases on return type of actions
+
+Reducer will return state with payload(optional)
+saga will call the respective function(worker) and then call the API function(service) with payload return by action. and then saga will call action if needed and the process is might be recursive. this will result in changing the state of redux store.
+
+
+
+
+
+
 
 
