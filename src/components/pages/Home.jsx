@@ -5,25 +5,25 @@ import HeroCards from "components/common/HeroCards";
 import CategoriesSlider from "components/common/CategoriesSlider";
 
 
-const Home = ({ products,categories:{data,loading,error} }) => {
-  return (  
+const Home = ({ products, categories: { data, loading, error } }) => {
+  return (
     <>
       <HeroSlider />
 
       <HeroCards />
       {loading && <p>Loading...</p>}
-      {error.length>0 && <p>{error}</p>}
+      {error.length > 0 && <p>{error}</p>}
       {
-        !loading && data && data.length>3 &&
-        <CategoriesSlider products={products} cats={data.filter(c=>c.parent===0).slice(0,4)} />
+        !loading && data && data.length > 3 &&
+        <CategoriesSlider products={products} cats={data.filter(c => c.parent === 0).slice(0, 4)} />
       }
       <CounterSection />
-      {loading&& <p>Loading...</p>}
+      {loading && <p>Loading...</p>}
       {
-        !loading && data && data.length>6 &&
-        <CategoriesSlider products={products} right cats={data.filter(c=>c.parent===0).slice(4,7)}/>
+        !loading && data && data.length > 6 &&
+        <CategoriesSlider products={products} right cats={data.filter(c => c.parent === 0).slice(4, 7)} />
       }
-      
+
 
       <InstaProfile />
     </>

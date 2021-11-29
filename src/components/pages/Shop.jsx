@@ -13,26 +13,22 @@ function Shop({ products: { data: products, loading }, categories, searchActions
 
   const handleSorting = (event) => {
     const sortedProducts = [...allProducts];
+    switch (event.target.value) {
+      case 'priceLowtoHigh':
+        setAllProducts(sortedProducts.sort((p1, p2) => parseInt(p1.prices.sale_price) - parseInt(p2.prices.sale_price)));
+        break;
+      case 'priceHightoLow':
+        setAllProducts(sortedProducts.sort((p1, p2) => parseInt(p2.prices.sale_price) - parseInt(p1.prices.sale_price)));
+        break;
+      default:
+        setAllProducts(products);
+    }
 
-    setAllProducts(sortedProducts.sort((p1, p2) => {
-      switch (event.target.value) {
-        case 'priceLowtoHigh':
-          return parseInt(p1.prices.sale_price) - parseInt(p2.prices.sale_price);
-        case 'priceHightoLow':
-          return parseInt(p2.prices.sale_price) - parseInt(p1.prices.sale_price);
-        // case 'newestFirst':
-        //   return new Date(p2);
-        default:
-          return null;
-      }
-    }));
     // setAllProducts(sortedProducts.sort((p1, p2)=>parseInt(p1.prices.sale_price)-parseInt(p2.prices.sale_price)));
     // console.log('sorting', allProducts);
   }
   useEffect(() => {
-    if (!_.isEmpty(products)) {
-      setAllProducts(products);
-    }
+    setAllProducts(products);
   }, [products]);
 
   useEffect(() => {

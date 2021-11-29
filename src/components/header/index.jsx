@@ -4,7 +4,6 @@ import Searchbar from "./Searchbar";
 import CallToActions from "./cta";
 const Header = ({ categories: cat, cart, cartActions, products, favourite, favActions, searchActions }) => {
     const { data: categories } = cat;
-    console.log("from header ",categories);
     return (
         <div>
             {/* Header Section Begin */}

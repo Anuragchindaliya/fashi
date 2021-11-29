@@ -1,40 +1,37 @@
-import React from 'react'
+import React, { useState } from 'react'
 import _ from 'lodash';
 import { useHistory } from 'react-router';
 
 const Searchbar = ({ searchActions, categories }) => {
+    const [searchTerm, setSearchTerm] = useState("");
     const { searchProductsFetch } = searchActions;
     const history = useHistory();
+
+    const fetchData = (searchText) => {
+        if (searchText.length > 2) {
+            searchProductsFetch({ search: searchText, category: document.getElementById("cat_id").value });
+            history.push("/search");
+        }
+    }
     var handleSearchInput = () => {
         return _.debounce((event) => {
-            if (event.target.value.length > 2) {
-                searchProductsFetch({ search: event.target.value, category: document.getElementById("cat_id").value });
-                history.push("/search");
-                console.log("category id ", document.getElementById("cat_id").value)
-            }
+            fetchData(event.target.value)
+            setSearchTerm(event.target.value);
         }, 1000);
     }
 
     const searchQuery = () => {
-        const searchTerm = document.getElementById('search').value;
-        if (searchTerm.length > 2) {
-            searchProductsFetch({ search: searchTerm, category: document.getElementById("cat_id").value });
-            history.push("/search");
-        }
+        // const searchValue = document.getElementById('search').value;
+        fetchData(searchTerm);
     }
 
     const handleEnterKey = (e) => {
         if (e.keyCode === 13) {
-            const searchTerm = document.getElementById('search').value;
-            if (searchTerm.length > 2) {
-                console.log("clicked");
-                searchProductsFetch({ search: searchTerm, category: document.getElementById("cat_id").value });
-                history.push("/search");
-            }
+            // const searchValue = document.getElementById('search').value;
+            fetchData(searchTerm);
         }
     }
-
-    console.log("hello", categories);
+    console.log("search Term ", searchTerm);
     return (
         <>
             <div className="advanced-search">
@@ -46,7 +43,9 @@ const Searchbar = ({ searchActions, categories }) => {
                     </select>}
 
                 <div className="input-group">
-                    <input type="text" placeholder="What do you need?" onChange={handleSearchInput()} onKeyDown={handleEnterKey} id='search' />
+                    <input type="text" placeholder="What do you need?" onChange={handleSearchInput()} onKeyDown={handleEnterKey}
+                        // onInput={(e) => setSearchTerm(e.target.value)}
+                        id='search' />
                     <button type="button" onClick={searchQuery}><i className="ti-search" /></button>
                 </div>
             </div>

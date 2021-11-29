@@ -4,7 +4,6 @@ import { Link, useLocation } from "react-router-dom";
 const MobileMenu = () => {
     const [isMenuOpen, setMenuOpen] = useState(false);
     const { pathname } = useLocation();
-    // console.log(pathname);
     useEffect(() => {
         setMenuOpen(false)
     }, [pathname])
@@ -27,9 +26,6 @@ const MobileMenu = () => {
                         // e.target
 
                         const nextEle = e.target.nextElementSibling;
-                        // const nextEle = item.nextElementSibling;
-                        // console.log("current element ", e.target);
-                        // console.log("nextElement ", nextEle);
                         if (nextEle) {
                             if (nextEle.classList.contains("slicknav_hidden")) {
                                 menuItem.forEach(item => item.nextElementSibling.classList.remove("slicknav_hidden"));
