@@ -14,7 +14,7 @@ const Home = ({ products, categories: { data, loading, error } }) => {
       {loading && <p>Loading...</p>}
       {error.length > 0 && <p>{error}</p>}
       {
-        !loading && data && data.length > 3 &&
+        !loading && data?.length > 3 &&
         <CategoriesSlider products={products} cats={data.filter(c => c.parent === 0).slice(0, 4)} />
       }
       <CounterSection />

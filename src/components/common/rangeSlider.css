@@ -36,9 +36,10 @@
 
 .rs_slider__left-value,
 .rs_slider__right-value {
-  color: #dee2e6;
-  font-size: 12px;
+  color: #000000;
+  font-size: 17px;
   margin-top: 20px;
+  width: 70px;
 }
 
 .rs_slider__left-value {
@@ -46,7 +47,7 @@
 }
 
 .rs_slider__right-value {
-  right: -4px;
+  right: 0px;
 }
 
 /* Removing the default appearance */

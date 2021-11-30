@@ -81,18 +81,18 @@ const MultiRangeSlider = ({ min, max, onChange }) => {
                 <div className="rs_slider__track" />
                 <div ref={range} className="slider__range" />
                 <div className="price-input">
-                <input type="number" className="rs_slider__left-value" value={minVal} onChange={(e) => {
-                    const value = Math.min(+e.target.value, maxVal - 1);
-                    setMinVal(value);
-                    e.target.value = value.toString();
-                    onChange({ min: e.target.value, max: maxVal });
-                }} />
-                <input type="number" className="rs_slider__right-value" value={maxVal} onChange={(e) => {
-                    const value = Math.max(+e.target.value, minVal + 1);
-                    setMaxVal(value);
-                    e.target.value = value.toString();
-                    onChange({ min: minVal, max: e.target.value });
-                }} />
+                    <input type="number" className="rs_slider__left-value" value={minVal} onChange={(e) => {
+                        const value = Math.min(+e.target.value, maxVal - 1);
+                        setMinVal(value);
+                        e.target.value = value.toString();
+                        onChange({ min: e.target.value, max: maxVal });
+                    }} />
+                    <input type="number" className="rs_slider__right-value" value={maxVal} onChange={(e) => {
+                        const value = Math.max(+e.target.value, minVal + 1);
+                        setMaxVal(value);
+                        e.target.value = value.toString();
+                        onChange({ min: minVal, max: e.target.value });
+                    }} />
                 </div>
             </div>
         </>

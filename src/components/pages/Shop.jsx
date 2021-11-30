@@ -1,9 +1,13 @@
 import { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import ProductCard from "components/common/products/card";
 import Sidebar from "../sidebar";
 import _ from "lodash";
 import ShopSkeleton from "components/common/skeleton/shopSkeleton";
+import SortProductsFilter from "components/common/sortProductsFilter";
+import TotalProductsCount from "components/common/totalProductsCount";
+import Breadcrumb from "components/common/breadcrumb";
+import ProductsLoader from "components/common/productsLoader";
 
 function Shop({ products: { data: products, loading }, categories, searchActions }) {
   const [allProducts, setAllProducts] = useState([]);
@@ -27,6 +31,14 @@ function Shop({ products: { data: products, loading }, categories, searchActions
     // setAllProducts(sortedProducts.sort((p1, p2)=>parseInt(p1.prices.sale_price)-parseInt(p2.prices.sale_price)));
     // console.log('sorting', allProducts);
   }
+
+  const priceFilter = (min, max) => {
+    setAllProducts(products.filter((product) => {
+
+      return (product.prices.sale_price >= min && product.prices.sale_price <= max) || false;
+    }));
+  }
+
   useEffect(() => {
     setAllProducts(products);
   }, [products]);
@@ -50,47 +62,19 @@ function Shop({ products: { data: products, loading }, categories, searchActions
   }, []);
   return (
     <>
-      {/* Breadcrumb Section Begin */}
-      <div className="breacrumb-section">
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-12">
-              <div className="breadcrumb-text">
-                <Link to="/"><i className="fa fa-home" /> Home</Link>
-                <span>Shop</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <Breadcrumb />
       {/* Breadcrumb Section Begin */}
       <section className="product-shop spad">
         <div className="container">
           <div className="row">
-            {categories && <Sidebar categories={categories} />}
+            {categories && <Sidebar categories={categories} products={allProducts} priceFilter={priceFilter} />}
             {loading ? <ShopSkeleton /> :
               (
                 <div className="col-lg-9 order-1 order-lg-2">
                   <div className="product-show-option">
                     <div className="row">
-                      <div className="col-lg-7 col-md-7">
-                        <div className="select-option">
-                          <select className="sorting" onChange={handleSorting}>
-                            <option value>Default Sorting</option>
-                            <option value='priceLowtoHigh'>Price Low to High</option>
-                            <option value='priceHightoLow'>Price High to Low</option>
-                            <option value='newestFirst'>Newest first</option>
-                          </select>
-                          <select className="p-show">
-                            <option value>Show:</option>
-                          </select>
-                        </div>
-                      </div>
-                      <div className="col-lg-5 col-md-5 text-right">
-                        {/* {finalProducts.length > 0 ? <p>Show 01- 09 Of {finalProducts.length} Product</p> : "No result"} */}
-                        {allProducts.length > 0 ? <p>Show 01 - {allProducts.length < 10 ? `0${allProducts.length}` : allProducts.length} Product</p> : "No result"}
-                      </div>
-
+                      <SortProductsFilter handleSorting={handleSorting} />
+                      <TotalProductsCount allProducts={allProducts} />
                     </div>
                   </div>
                   <div className="product-list">
@@ -105,10 +89,7 @@ function Shop({ products: { data: products, loading }, categories, searchActions
                       }
                     </div>
                   </div>
-                  {/* <div className="loading-more">
-                    <i className="icon_loading" />
-                    <a href="/#">Loading More</a>
-                  </div> */}
+                  {loading && <ProductsLoader />}
                 </div>
               )
             }

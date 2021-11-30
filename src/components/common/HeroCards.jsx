@@ -1,47 +1,38 @@
 const HeroCards = () => {
+    const cards = [
+        {
+            title: "Men’s",
+            imgsrc: "./assets/img/banner-1.jpg"
+        },
+        {
+            title: "Women’s",
+            imgsrc: "./assets/img/banner-2.jpg"
+        },
+        {
+            title: "Kid’s",
+            imgsrc: "./assets/img/banner-3.jpg"
+        },
+        {
+            title: "Others",
+            imgsrc: "./assets/img/banner-1.jpg"
+        }
+
+    ]
     return (
-        <>
-            {/* Banner Section Begin */}
-            <div className="banner-section spad">
-                <div className="container-fluid">
-                    <div className="row scrollable">
-                        <div className="col-lg-4 col-8">
-                            <div className="single-banner">
-                                <img src="./assets/img/banner-1.jpg" alt="" />
-                                <div className="inner-text">
-                                    <h4>Men’s</h4>
-                                </div>
+        <div className="banner-section spad">
+            <div className="container-fluid">
+                <div className="row scrollable">
+                    {cards.map((card,index) => (<div key={index} className="col-lg-4 col-8">
+                        <div className="single-banner">
+                            <img src={`${card.imgsrc}`} alt="" />
+                            <div className="inner-text">
+                                <h4>{card.title}</h4>
                             </div>
                         </div>
-                        <div className="col-lg-4 col-8">
-                            <div className="single-banner">
-                                <img src="./assets/img/banner-2.jpg" alt="" />
-                                <div className="inner-text">
-                                    <h4>Women’s</h4>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-lg-4 col-8">
-                            <div className="single-banner">
-                                <img src="./assets/img/banner-3.jpg" alt="" />
-                                <div className="inner-text">
-                                    <h4>Kid’s</h4>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-lg-4 col-8">
-                            <div className="single-banner">
-                                <img src="./assets/img/banner-3.jpg" alt="" />
-                                <div className="inner-text">
-                                    <h4>Kid’s</h4>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    </div>))}
                 </div>
             </div>
-            {/* Banner Section End */}
-        </>
+        </div>
     );
 }
 export default HeroCards;

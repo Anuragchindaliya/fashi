@@ -1,4 +1,7 @@
 import { Link } from "react-router-dom";
+import Copyright from "./copyright";
+import NewsLetter from "./newsLetter";
+import SocialLinks from "./socialLinks";
 
 function Footer() {
     return (
@@ -17,12 +20,7 @@ function Footer() {
                                     <li>Phone: +65 11.188.888</li>
                                     <li>Email: hello.colorlib@gmail.com</li>
                                 </ul>
-                                <div className="footer-social">
-                                    <a href="/#"><i className="fa fa-facebook" /></a>
-                                    <a href="/#"><i className="fa fa-instagram" /></a>
-                                    <a href="/#"><i className="fa fa-twitter" /></a>
-                                    <a href="/#"><i className="fa fa-pinterest" /></a>
-                                </div>
+                                <SocialLinks />
                             </div>
                         </div>
                         <div className="col-lg-2 offset-lg-1">
@@ -48,14 +46,7 @@ function Footer() {
                             </div>
                         </div>
                         <div className="col-lg-4">
-                            <div className="newslatter-item">
-                                <h5>Join Our Newsletter Now</h5>
-                                <p>Get E-mail updates about our latest shop and special offers.</p>
-                                <form action="#" className="subscribe-form">
-                                    <input type="text" placeholder="Enter Your Mail" />
-                                    <button type="button">Subscribe</button>
-                                </form>
-                            </div>
+                            <NewsLetter />
                         </div>
                     </div>
                 </div>
@@ -63,14 +54,7 @@ function Footer() {
                     <div className="container">
                         <div className="row">
                             <div className="col-lg-12">
-                                <div className="copyright-text">
-                                    {/* Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. */}
-                                    Copyright © All rights reserved | This template is made with <i className="fa fa-heart-o" aria-hidden="true"  /> by <a href="https://web2rise.com" target="_blank" rel="noopener noreferrer">Web2rise</a>
-                                    {/* Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. */}
-                                </div>
-                                <div className="payment-pic">
-                                    <img src="img/payment-method.png" alt="" />
-                                </div>
+                                <Copyright />
                             </div>
                         </div>
                     </div>
