@@ -4,7 +4,6 @@ import createSagaMiddleware from "redux-saga";
 import ReactDOM from "react-dom";
 import App from "./App";
 import reducer from "./reducers/index.js";
-import cartReducer from "./reducers/cart.reducer";
 import saga from "./sagas";
 
 const sagaMiddleware = createSagaMiddleware();
@@ -16,9 +15,9 @@ const store = createStore(
   reducer,
   compose(
     applyMiddleware(sagaMiddleware),
-    (window.devToolsExtension && window.devToolsExtension()) ||
-      (window.__REDUX_DEVTOOLS_EXTENSION__ &&
-        window.__REDUX_DEVTOOLS_EXTENSION__())
+    // (window.devToolsExtension && window.devToolsExtension()) ||
+    //   (window.__REDUX_DEVTOOLS_EXTENSION__ &&
+    //     window.__REDUX_DEVTOOLS_EXTENSION__())
   )
 );
 

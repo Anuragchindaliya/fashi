@@ -2,12 +2,38 @@ import { Link, NavLink } from "react-router-dom";
 import parse from "html-react-parser";
 import Searchbar from "./Searchbar";
 import CallToActions from "./cta";
+import { useEffect, useState } from "react";
 const Header = ({ categories: cat, cart, cartActions, products, favourite, favActions, searchActions }) => {
     const { data: categories } = cat;
+    const [headerVisibility, setHeaderVisibility] = useState({ hidden: false, pos: 0 });
+
+    const hiderHeader = () => {
+        var st = window.pageYOffset || document.documentElement.scrollTop;
+        if (st > 100) {
+            if (st > headerVisibility.pos) {
+                // downscroll code
+                setHeaderVisibility({ hidden: true, pos: st });
+            } else {
+                // upscroll code
+                setHeaderVisibility({ hidden: false, pos: 0 });
+            }
+        }
+        
+        headerVisibility.pos = st <= 0 ? 0 : st; // For Mobile or negative scrolling
+
+        // console.log("window scroll position ", window.pageYOffset, "previous position ", headerVisibility.pos, window.pageYOffset > headerVisibility.pos)
+
+    }
+    useEffect(() => {
+        window.addEventListener("scroll", hiderHeader);
+        return () => {
+            window.removeEventListener("scroll", hiderHeader)
+        }
+    }, [])
     return (
-        <div>
+        <div className="bigHeaderWrap">
             {/* Header Section Begin */}
-            <header className="header-section bigHeader">
+            <header className={`header-section bigHeader ${headerVisibility.hidden ? "hidden fixed-top" : "stickToTop"}`}>
                 <div className="container-fluid container">
                     <div className="inner-header">
                         <div className="row">
@@ -43,7 +69,7 @@ const Header = ({ categories: cat, cart, cartActions, products, favourite, favAc
                         </div>
                         <nav className="nav-menu">
                             <ul>
-                                <li><NavLink to="/">Home</NavLink></li>
+                                <li><NavLink to="/" smooth={true}>Home</NavLink></li>
                                 <li><NavLink to="/shop">Shop</NavLink></li>
                                 <li><a href="/#">Collection</a>
                                     <ul className="dropdown">

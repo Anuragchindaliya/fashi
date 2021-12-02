@@ -1,3 +1,4 @@
+import ScrollToTopBtn from "components/common/scrollToTopBtn";
 import { Link } from "react-router-dom";
 import Copyright from "./copyright";
 import NewsLetter from "./newsLetter";
@@ -59,6 +60,7 @@ function Footer() {
                         </div>
                     </div>
                 </div>
+                <ScrollToTopBtn />
             </footer>
             {/* Footer Section End */}
         </>

@@ -32,7 +32,7 @@ function Shop({ products: { data: products, loading }, categories, searchActions
     // console.log('sorting', allProducts);
   }
 
-  const priceFilter = (min, max) => {
+  const filterProductByPrice = (min, max) => {
     setAllProducts(products.filter((product) => {
 
       return (product.prices.sale_price >= min && product.prices.sale_price <= max) || false;
@@ -67,7 +67,7 @@ function Shop({ products: { data: products, loading }, categories, searchActions
       <section className="product-shop spad">
         <div className="container">
           <div className="row">
-            {categories && <Sidebar categories={categories} products={allProducts} priceFilter={priceFilter} />}
+            {categories && <Sidebar categories={categories} products={allProducts} filterProductByPrice={filterProductByPrice} />}
             {loading ? <ShopSkeleton /> :
               (
                 <div className="col-lg-9 order-1 order-lg-2">

@@ -31,7 +31,7 @@ const Searchbar = ({ searchActions, categories }) => {
             fetchData(searchTerm);
         }
     }
-    console.log("search Term ", searchTerm);
+    // console.log("search Term ", searchTerm);
     return (
         <>
             <div className="advanced-search">

@@ -29,8 +29,8 @@ const InstaProfile = () => {
     <>
       {/* Instagram Section Begin */}
       <div className="instagram-photo">
-        {instaProfiles.map((profile) => (
-          <div className="insta-item set-bg" style={{ backgroundImage: `url(${profile.bgimg})` }} data-setbg="img/insta-1.jpg">
+        {instaProfiles.map((profile, index) => (
+          <div key={index} className="insta-item set-bg" style={{ backgroundImage: `url(${profile.bgimg})` }} data-setbg="img/insta-1.jpg">
             <div className="inside-text">
               <i className="ti-instagram" />
               <h5><a href="/#" target="_blank">{profile.title}</a></h5>

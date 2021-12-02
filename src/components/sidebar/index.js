@@ -7,13 +7,13 @@ import TagsFilter from "./tagsFilter";
 const Sidebar = ({
   categories: { data: categories },
   products,
-  priceFilter,
+  filterProductByPrice,
 }) => {
   return (
     <>
       <div className="col-lg-3 col-md-6 col-sm-8 order-2 order-lg-1 produts-sidebar-filter">
         <CategoriesFilter categories={categories} />
-        <PriceFilter products={products} priceFilter={priceFilter} />
+        <PriceFilter products={products} filterProductByPrice={filterProductByPrice} />
         <ColorFilter />
         <TagsFilter />
         <SizeFilter />

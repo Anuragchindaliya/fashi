@@ -1,15 +1,19 @@
 import MultiRangeSlider from "components/common/rangeSlider";
-import { debounce } from "lodash";
+import { debounce, filter } from "lodash";
 import { useCallback } from "react";
 import "../common/rangeSlider.css";
-const PriceFilter = ({ products, priceFilter }) => {
-    const debouncedSave = useCallback(debounce((min, max) =>
-        // priceFilter(min, max)
-        console.log("hellos")
-        , 1000), []);
+const PriceFilter = ({ products, filterProductByPrice }) => {
+
+    const debouncedSave = useCallback(debounce((min, max) => {
+        filterProductByPrice(min, max)
+        // console.log(min, max)
+        // console.log("hellos")
+    }, 1000), []);
+
     const updatePrice = ({ min, max }) => {
-        priceFilter(min, max);
+        // filterProductByPrice(min, max);
         debouncedSave(min, max);
+        console.log("Every time")
         //  filterProducts(min,max);
     }
 
@@ -25,6 +29,7 @@ const PriceFilter = ({ products, priceFilter }) => {
         })
         return maxPrice;
     }
+
     // console.log("products ", getMaximumPrice());
     return (
         <>
@@ -47,7 +52,7 @@ const PriceFilter = ({ products, priceFilter }) => {
                         </div>
                     </div>
                 </div> */}
-                
+
                 <a href="/#" className="filter-btn">Filter</a>
             </div>
         </>

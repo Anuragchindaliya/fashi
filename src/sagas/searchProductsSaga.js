@@ -1,4 +1,4 @@
-import { call, put, takeLatest, select } from "redux-saga/effects";
+import { call, put, takeLatest } from "redux-saga/effects";
 import { searchProduct } from "../services/api";
 import { searchProductsTypes } from "types";
 import {
