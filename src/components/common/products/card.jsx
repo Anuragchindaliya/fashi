@@ -50,6 +50,7 @@ const ProductCard = ({ product: el, cartActions, cart, favActions, favourite }) 
             toast.success(`${el.name.substr(0, 40)} Added to Fav`, { position: "top-right" })
         }
     }
+    console.log("product", el)
     return (
         <>
             <div className="product-item">

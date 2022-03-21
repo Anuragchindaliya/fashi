@@ -1,36 +1,39 @@
 import MultiRangeSlider from "components/common/rangeSlider";
-import { debounce, filter } from "lodash";
-import { useCallback } from "react";
+import { useState } from "react";
 import "../common/rangeSlider.css";
 const PriceFilter = ({ products, filterProductByPrice }) => {
+    // const debouncedSave = useCallback(debounce((min, max) => {
+    //     filterProductByPrice(min, max)
 
-    const debouncedSave = useCallback(debounce((min, max) => {
-        filterProductByPrice(min, max)
-        // console.log(min, max)
-        // console.log("hellos")
-    }, 1000), []);
+    // }, 1000), []);
+    const [priceRange, setPriceRange] = useState({ min: 0, max: 0 })
 
     const updatePrice = ({ min, max }) => {
         // filterProductByPrice(min, max);
-        debouncedSave(min, max);
+
+        // debouncedSave(min, max);
+
+        setPriceRange({ min, max })
         console.log("Every time")
         //  filterProducts(min,max);
     }
 
     //get maximum price of currently loaded products
-    function getMaximumPrice() {
-        var maxPrice = 0;
-        products.map((pr) => {
+    // function getMaximumPrice() {
+    //     var maxPrice = 0;
+    //     products.forEach((pr) => {
 
-            if (pr.prices.sale_price > maxPrice) {
-                maxPrice = +pr.prices.sale_price;
-            }
+    //         if (pr.prices.sale_price > maxPrice) {
+    //             maxPrice = +pr.prices.sale_price;
+    //         }
 
-        })
-        return maxPrice;
+    //     })
+    //     return maxPrice;
+    // }
+
+    const filterProductByClick = () => {
+        filterProductByPrice(priceRange.min, priceRange.max);
     }
-
-    // console.log("products ", getMaximumPrice());
     return (
         <>
             <div className="filter-widget">
@@ -53,7 +56,7 @@ const PriceFilter = ({ products, filterProductByPrice }) => {
                     </div>
                 </div> */}
 
-                <a href="/#" className="filter-btn">Filter</a>
+                <b className="filter-btn btn" onClick={filterProductByClick}>Filter</b>
             </div>
         </>
     )

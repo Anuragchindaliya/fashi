@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState, useRef } from "react";
 import classnames from "classnames";
 import PropTypes from "prop-types";
+import { first } from "lodash";
 
 
 const MultiRangeSlider = ({ min, max, onChange }) => {
@@ -40,7 +41,7 @@ const MultiRangeSlider = ({ min, max, onChange }) => {
             }
         }
     }, [maxVal, getPercent]);
-
+    
     // Get min and max values when their state changes
     useEffect(() => {
         onChange({ min: minVal, max: maxVal });
@@ -55,7 +56,7 @@ const MultiRangeSlider = ({ min, max, onChange }) => {
                 value={minVal}
                 ref={minValRef}
                 onChange={(event) => {
-                    const value = Math.min(+event.target.value, maxVal - 1);
+                    const value = Math.min(+event.target.value, maxVal - 2000);
                     setMinVal(value);
                     event.target.value = value.toString();
                 }}
@@ -70,7 +71,7 @@ const MultiRangeSlider = ({ min, max, onChange }) => {
                 value={maxVal}
                 ref={maxValRef}
                 onChange={(event) => {
-                    const value = Math.max(+event.target.value, minVal + 1);
+                    const value = Math.max(+event.target.value, minVal + 2000);
                     setMaxVal(value);
                     event.target.value = value.toString();
                 }}
@@ -82,13 +83,13 @@ const MultiRangeSlider = ({ min, max, onChange }) => {
                 <div ref={range} className="slider__range" />
                 <div className="price-input">
                     <input type="number" className="rs_slider__left-value" value={minVal} onChange={(e) => {
-                        const value = Math.min(+e.target.value, maxVal - 1);
+                        const value = Math.min(+e.target.value, maxVal - 2000);
                         setMinVal(value);
                         e.target.value = value.toString();
                         onChange({ min: e.target.value, max: maxVal });
                     }} />
                     <input type="number" className="rs_slider__right-value" value={maxVal} onChange={(e) => {
-                        const value = Math.max(+e.target.value, minVal + 1);
+                        const value = Math.max(+e.target.value, minVal + 2000);
                         setMaxVal(value);
                         e.target.value = value.toString();
                         onChange({ min: minVal, max: e.target.value });

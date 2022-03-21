@@ -470,7 +470,7 @@ ol {
 }
 
 .inner-header .advanced-search .input-group {
-  max-width: 72%;
+  width: 72%;
   height: 100%;
 }
 
@@ -3102,7 +3102,7 @@ b.disabled.primary-btn.pd-cart {
 }
 
 .checkout-form .create-item {
-  padding-top: 15px;
+  padding-bottom: 15px;
 }
 
 .checkout-form .create-item label {
@@ -4547,7 +4547,7 @@ b.disabled.primary-btn.pd-cart {
     display: none;
   }
   .bigHeaderWrap {
-    margin-bottom: 0px!important;
+    margin-bottom: 0px !important;
   }
   .row.scrollable::-webkit-scrollbar {
     height: 3px !important;

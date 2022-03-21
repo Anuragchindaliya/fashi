@@ -1,13 +1,23 @@
 import axios from "axios";
 
 const auth = {
-  username: "ck_4149c771187a4472b12372a205c2ffd2cfa9c095",
-  password: "cs_197a285ce0b4273303c01e8ea1c9c73f64bc477f",
+  username: "ck_abddcaf90fa487a6d9f193c680394f9ca8f3ea01",
+  password: "cs_b319f241c3bec84ada8c929d0f31a1d465740fea",
 };
+
+// export const allProductsApi = async () => {
+//   return await axios
+//     .get("https://shop.mohitele.com/wp-json/wc/store/products", {
+//       params: { per_page: 100 },
+//     })
+//     .then((response) => response.data)
+//     .catch((err) => Promise.reject(err.message))
+//     .then((res) => res);
+// };
 
 export const allProductsApi = async () => {
   return await axios
-    .get("https://shop.mohitele.com/wp-json/wc/store/products", {
+    .get("http://web2rise.q2w.in:100/mohitele/wp-json/wc/store/products", {
       params: { per_page: 100 },
     })
     .then((response) => response.data)
@@ -17,7 +27,9 @@ export const allProductsApi = async () => {
 
 export const allCategoriesApi = async () => {
   return await axios
-    .get("https://shop.mohitele.com/wp-json/wc/store/products/categories")
+    .get(
+      "http://web2rise.q2w.in:100/mohitele/wp-json/wc/store/products/categories"
+    )
     .then((response) => response.data)
     .catch((err) => Promise.reject(err.message))
     .then((res) => res);
@@ -25,26 +37,44 @@ export const allCategoriesApi = async () => {
 
 export const productBySlug = async (slug) => {
   return await axios
-    .get(`https://shop.mohitele.com/wp-json/wc/v3/products/?slug=${slug}`, {
-      auth: auth,
-    })
+    .get(
+      `http://web2rise.q2w.in:100/mohitele/wp-json/wc/store/products/?slug=${slug}`
+    )
     .then((response) => response.data)
     .catch((err) => Promise.reject(err.message))
     .then((res) => res);
 };
+
 export const searchProduct = async (params) => {
   let paramString = ``;
   const { search, category } = params;
   paramString += search && "search=" + search + "&";
   paramString += category !== "0" && "category=" + category + "&";
   return await axios
-    .get(`https://shop.mohitele.com/wp-json/wc/store/products?${paramString}`, {
-      auth: auth,
-    })
+    .get(
+      `http://web2rise.q2w.in:100/mohitele/wp-json/wc/store/products?${paramString}`,
+      {
+        auth: auth,
+      }
+    )
     .then((response) => response.data)
     .catch((err) => Promise.reject(err.message))
     .then((res) => res);
 };
+
+export const createAccountApi = async (formData) => {
+  return await axios({
+    method: "POST",
+    url: "http://localhost/meapi/account.php",
+    data: JSON.stringify(formData),
+  }).then((response) => response.data);
+  // return await axios
+  //   .post(`http://localhost/meapi/account.php`, JSON.stringify(formData))
+  //   .then((response) => response.json())
+  //   .catch((err) => Promise.reject(err.message))
+  //   .then((res) => res);
+};
+
 // export const searchProduct = async (query) => {
 //   return await axios
 //     .get(`https://shop.mohitele.com/wp-json/wc/v3/products?search=${query}`, {

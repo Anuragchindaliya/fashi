@@ -23,6 +23,8 @@ import { favActions } from "actions/favourite.action";
 import ScrollToTop from "components/common/scrollToTop";
 import MobileHeader from "components/header/mobileHeader";
 import searchProductsActions from "actions/searchProducts.action";
+import Checkout from "components/pages/Checkout";
+import accountActions from "actions/account.action";
 
 function App(props) {
   const {
@@ -35,20 +37,25 @@ function App(props) {
     favourite,
     favActions,
     searchResult,
-    searchActions
+    searchActions,
   } = props;
- 
+
   useEffect(() => {
     props.productsFetch();
     props.categoriesFetch();
   }, []);
-  
+
   return (
     <>
       <Router>
         <ScrollToTop />
         {/* big screen header */}
-        <MobileHeader products={products} cart={cart} favourite={favourite} searchActions={searchActions} />
+        <MobileHeader
+          products={products}
+          cart={cart}
+          favourite={favourite}
+          searchActions={searchActions}
+        />
         <Header
           categories={categories}
           cart={cart}
@@ -58,7 +65,7 @@ function App(props) {
           favActions={favActions}
           searchActions={searchActions}
         />
-        
+
         <Switch>
           <Route exact path="/">
             <Home products={products} categories={categories} />
@@ -80,7 +87,11 @@ function App(props) {
             />
           </Route>
           <Route exact path="/category/:slug">
-            <Shop products={products} categories={categories} searchActions={searchActions} />
+            <Shop
+              products={products}
+              categories={categories}
+              searchActions={searchActions}
+            />
           </Route>
           <Route exact path="/cart">
             <Cart cart={cart} cartActions={cartActions} />
@@ -107,6 +118,9 @@ function App(props) {
               cartActions={cartActions}
             />
           </Route>
+          <Route exact path="/checkout">
+            <Checkout cart={cart} />
+          </Route>
           {/* <Route exact path="/:cat">
             <Dummy products={products} categories={categories} />
             <Shop products={products} categories={categories} />
@@ -130,7 +144,8 @@ const mapStateToProps = (state) => {
     singleProduct: state.singleProduct,
     cart: state.cart,
     favourite: state.favourite,
-    searchResult: state.searchResult
+    searchResult: state.searchResult,
+    account: state.account,
   };
 };
 const mapDispatchToProps = (dispatch) => {
@@ -140,7 +155,8 @@ const mapDispatchToProps = (dispatch) => {
     singleProductFetch: (slug) => dispatch(singleProductFetch(slug)),
     cartActions: bindActionCreators(cartActions, dispatch),
     favActions: bindActionCreators(favActions, dispatch),
-    searchActions: bindActionCreators(searchProductsActions,dispatch),
+    searchActions: bindActionCreators(searchProductsActions, dispatch),
+    accountActions: bindActionCreators(accountActions, dispatch),
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(App);

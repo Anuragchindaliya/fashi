@@ -1,4 +1,5 @@
 import _ from "lodash";
+import { Link } from "react-router-dom";
 import CartItem from "./cartItem";
 
 const Cart = ({ cart, cartActions }) => {
@@ -66,7 +67,7 @@ const Cart = ({ cart, cartActions }) => {
                                             <li className="subtotal">Subtotal <span>₹{totalPrice}</span></li>
                                             <li className="cart-total">Total <span>₹{totalPrice}</span></li>
                                         </ul>
-                                        <a href="/#" className="proceed-btn">PROCEED TO CHECK OUT</a>
+                                        <Link to="/checkout" className="proceed-btn">PROCEED TO CHECK OUT</Link>
                                     </div>
                                 </div>
                             </div>

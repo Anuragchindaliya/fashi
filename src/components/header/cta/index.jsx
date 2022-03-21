@@ -59,7 +59,7 @@ const CallToActions = ({ products, favourite, favActions, cart, cartActions }) =
                             <h5>₹{favTotalPrice}</h5>
                         </div>
                         <div className="select-button">
-                            {pathname !== "/fav" &&<Link to="/fav" className="primary-btn view-card">VIEW FAVOURITE</Link>}
+                            {pathname !== "/fav" && <Link to="/fav" className="primary-btn view-card">VIEW FAVOURITE</Link>}
                             {/* <a href="/#" className="primary-btn checkout-btn">CHECK OUT</a> */}
                         </div>
                     </div> : <div>No Favourite Items Added</div>}
@@ -106,12 +106,13 @@ const CallToActions = ({ products, favourite, favActions, cart, cartActions }) =
                         </div>
                         <div className="select-button">
                             {pathname !== "/cart" && <Link to="/cart" className="primary-btn view-card">VIEW CART</Link>}
-                            <a href="/#" className="primary-btn checkout-btn">CHECK OUT</a>
+                            <Link to="/checkout" className="primary-btn checkout-btn">CHECK OUT</Link>
                         </div>
                     </div> : <div>No Items Added</div>}
                 </div>
             </li>
             <li className="cart-price">₹{cartTotalPrice}</li>
+            
         </ul>
     )
 }

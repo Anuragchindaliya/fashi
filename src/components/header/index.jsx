@@ -3,7 +3,11 @@ import parse from "html-react-parser";
 import Searchbar from "./Searchbar";
 import CallToActions from "./cta";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 const Header = ({ categories: cat, cart, cartActions, products, favourite, favActions, searchActions }) => {
+    const account = useSelector((state) => state.account);
+    console.log(account, "real header hai");
+    const { first_name, last_name, avatar_url } = account?.data;
     const { data: categories } = cat;
     const [headerVisibility, setHeaderVisibility] = useState({ hidden: false, pos: 0 });
 
@@ -18,7 +22,7 @@ const Header = ({ categories: cat, cart, cartActions, products, favourite, favAc
                 setHeaderVisibility({ hidden: false, pos: 0 });
             }
         }
-        
+
         headerVisibility.pos = st <= 0 ? 0 : st; // For Mobile or negative scrolling
 
         // console.log("window scroll position ", window.pageYOffset, "previous position ", headerVisibility.pos, window.pageYOffset > headerVisibility.pos)
@@ -44,11 +48,17 @@ const Header = ({ categories: cat, cart, cartActions, products, favourite, favAc
                                     </NavLink>
                                 </div>
                             </div>
+
                             <div className="col-lg-7 col-md-7">
                                 <Searchbar searchActions={searchActions} categories={categories} />
                             </div>
                             <div className="col-lg-3 text-right col-md-3">
                                 <CallToActions products={products} favourite={favourite} favActions={favActions} cart={cart} cartActions={cartActions} />
+                                {account.data &&
+                                    <div>
+                                        <img src={avatar_url} alt="customer" />{first_name}
+                                    </div>
+                                }
                             </div>
                         </div>
                     </div>
@@ -69,7 +79,7 @@ const Header = ({ categories: cat, cart, cartActions, products, favourite, favAc
                         </div>
                         <nav className="nav-menu">
                             <ul>
-                                <li><NavLink to="/" smooth={true}>Home</NavLink></li>
+                                <li><NavLink to="/" >Home</NavLink></li>
                                 <li><NavLink to="/shop">Shop</NavLink></li>
                                 <li><a href="/#">Collection</a>
                                     <ul className="dropdown">
@@ -96,6 +106,7 @@ const Header = ({ categories: cat, cart, cartActions, products, favourite, favAc
                 </div>
             </header>
             {/* Header End */}
+
         </div>
     );
 }
