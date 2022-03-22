@@ -11,7 +11,7 @@ export function accountError(val) {
 }
 
 export function accountReset(val) {
-  return { type: accountTypes.RESET, payload: val };
+  return { type: accountTypes.RESET };
 }
 const accountActions = {
   createAccount,

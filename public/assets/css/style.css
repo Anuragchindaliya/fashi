@@ -199,6 +199,11 @@ ol {
   padding: 13px 45px 11px;
   cursor: pointer;
 }
+.site-btn:disabled{
+  background-color: grey;
+  cursor: not-allowed;
+  border: 1px solid #000;
+}
 
 /* Preloder */
 
@@ -3093,8 +3098,13 @@ b.disabled.primary-btn.pd-cart {
   width: 100%;
   height: 46px;
   border: 2px solid #ebebeb;
-  margin-bottom: 25px;
   padding-left: 15px;
+}
+.checkout-form .error {
+  display: none;
+}
+input:invalid[focused="true"] + .error {
+  display: block;
 }
 
 .checkout-form input.street-first {

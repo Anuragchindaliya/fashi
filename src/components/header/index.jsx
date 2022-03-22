@@ -4,10 +4,9 @@ import Searchbar from "./Searchbar";
 import CallToActions from "./cta";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import Profile from "./Profile";
 const Header = ({ categories: cat, cart, cartActions, products, favourite, favActions, searchActions }) => {
     const account = useSelector((state) => state.account);
-    console.log(account, "real header hai");
-    const { first_name, last_name, avatar_url } = account?.data;
     const { data: categories } = cat;
     const [headerVisibility, setHeaderVisibility] = useState({ hidden: false, pos: 0 });
 
@@ -53,12 +52,9 @@ const Header = ({ categories: cat, cart, cartActions, products, favourite, favAc
                                 <Searchbar searchActions={searchActions} categories={categories} />
                             </div>
                             <div className="col-lg-3 text-right col-md-3">
+
                                 <CallToActions products={products} favourite={favourite} favActions={favActions} cart={cart} cartActions={cartActions} />
-                                {account.data &&
-                                    <div>
-                                        <img src={avatar_url} alt="customer" />{first_name}
-                                    </div>
-                                }
+                                {account.data && <Profile {...account.data} />}
                             </div>
                         </div>
                     </div>
