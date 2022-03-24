@@ -25,7 +25,8 @@ import MobileHeader from "components/header/mobileHeader";
 import searchProductsActions from "actions/searchProducts.action";
 import Checkout from "components/pages/Checkout";
 import accountActions from "actions/account.action";
-import CreateAccount from "components/pages/createAccount";
+import Account from "components/pages/account";
+import Login from "components/pages/login";
 
 function App(props) {
   const {
@@ -122,8 +123,11 @@ function App(props) {
           <Route exact path="/checkout">
             <Checkout cart={cart} />
           </Route>
-          <Route exact path="/createaccount">
-            <CreateAccount />
+          <Route exact path="/account">
+            <Account />
+          </Route>
+          <Route exact path="/login">
+            <Login />
           </Route>
           {/* <Route exact path="/:cat">
             <Dummy products={products} categories={categories} />

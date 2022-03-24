@@ -3,6 +3,7 @@ export const categoriesTypes = apiTypeCreator("CATEGORIES");
 export const productsTypes = apiTypeCreator("PRODUCTS");
 export const singleProductTypes = apiTypeCreator("SINGLE_PRODUCT");
 export const accountTypes = apiTypeCreator("ACCOUNT");
+export const loginTypes = apiTypeCreator("LOGIN");
 
 export const searchProductsTypes = {
   ...apiTypeCreator("SEARCH_PODUCTS"),

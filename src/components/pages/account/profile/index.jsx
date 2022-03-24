@@ -1,17 +1,16 @@
 import accountActions from 'actions/account.action';
-import Breadcrumb from 'components/common/breadcrumb'
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import _ from "lodash";
 import { toast } from 'react-toastify';
-import { userLogin } from 'services/api';
-import InputField from './InputField';
+import InputField from '../createAccount/InputField';
 
 
-const CreateAccount = () => {
+const Profile = () => {
     const account = useSelector((state) => state.account);
     const [error, setError] = useState({});
     const dispatch = useDispatch();
+    console.log(account)
     const initialValue = {
         firstName: "",
         lastName: "",
@@ -43,13 +42,12 @@ const CreateAccount = () => {
         const requiredFields = inputFields.filter((input) => input.required);
         let finalStatus = false;
         requiredFields.forEach((field) => {
-            if (_.isEmpty(billingDetails[field.name])) {
+            if (_.isEmpty(billingDetails[field.name] || !billingDetails[field.name].match(inputFields[field.pattern]))) {
                 finalStatus = true;
             }
         })
-        return finalStatus || !_.isEmpty(error)
+        return finalStatus;
     }
-    console.log(error, "erro");
     const createAccount = (e) => {
         e.preventDefault();
         dispatch(accountActions.createAccount());
@@ -97,8 +95,8 @@ const CreateAccount = () => {
             type: "email",
             placeholder: "Email Address",
             label: "Email Address",
-            errorMessage: "It should be a valid email address",
-            pattern: `^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+\.[a-zA-Z0-9.-]$`,
+            errorMessage: "It should be valid email address",
+            pattern: "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+[.][a-zA-Z0-9.-]{2,}$",
             required: true,
             half: true
         },
@@ -107,9 +105,9 @@ const CreateAccount = () => {
             name: "phone",
             type: "number",
             placeholder: "Phone",
-            errorMessage: "Phone no. should be of 10 digits",
-            pattern: "^[0-9]{10}",
             label: "Phone",
+            errorMessage: "Phone no. should be of 10 digits",
+            pattern: `[0-9]{10}`,
             half: true
         },
         {
@@ -180,6 +178,7 @@ const CreateAccount = () => {
             type: "number",
             placeholder: "Postalcode / ZIP ",
             errorMessage: "Postalcode should be of 6 digit",
+            pattern: "^[0-9]{6}$",
             label: "Postalcode / ZIP",
         },
         {
@@ -200,7 +199,6 @@ const CreateAccount = () => {
 
     return (
         <>
-            <Breadcrumb />
             <section className="checkout-section spad">
                 <div className="container">
                     {/* <div style={{ display: "flex", justifyContent: "center", alignItems: "center", position: "fixed", zIndex: 9, backgroundColor: "rgba(255,255,255,.9)", height: "100vh", width: "100%", top: 0, left: 0 }}>
@@ -212,14 +210,13 @@ const CreateAccount = () => {
                     </div> : <div className="checkout-form">
                         <div className="row">
                             <div className="col-lg-6 mx-auto">
-                                <h4 className='text-center'>Create Account</h4>
+                                <h4 className='text-center'>Profile Dashboard</h4>
                                 <form className="row" onSubmit={createAccount}>
                                     {inputFields.map((input) => (
-                                        <InputField key={input.id} {...input} handleChange={handleChange} billingDetails={billingDetails} />
+                                        <InputField key={input.id} {...input} error={error[input.name]} handleChange={handleChange} billingDetails={billingDetails} />
                                     ))}
-
                                     <div className="col-lg-12 mt-3">
-                                        <button type='submit' className={`site-btn place-btn w-100 `} disabled={validateForm()}>Create An Account</button>
+                                        <button type='submit' className={`site-btn place-btn w-100 `} disabled={validateForm()}>Update details</button>
                                     </div>
                                 </form>
                             </div>
@@ -232,4 +229,4 @@ const CreateAccount = () => {
     )
 }
 
-export default CreateAccount;
+export default Profile;

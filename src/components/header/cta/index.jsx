@@ -3,9 +3,12 @@ import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { getTotalPrice } from 'utils';
 import { useLocation } from 'react-router';
+import Profile from '../Profile';
+import { useSelector } from 'react-redux';
 
 const CallToActions = ({ products, favourite, favActions, cart, cartActions }) => {
     const { pathname } = useLocation();
+    const account = useSelector((state) => state.account);
     const { removeFromFav } = favActions;
     const { updateQty } = cartActions;
     const keysArr = Object.keys(cart);
@@ -20,6 +23,7 @@ const CallToActions = ({ products, favourite, favActions, cart, cartActions }) =
     const cartTotalPrice = getTotalPrice(cart);
     return (
         <ul className="nav-right">
+            {/* <li> {<Profile {...account.data} />}</li> */}
             <li className="cart-icon">
                 <Link to="/fav">
                     <i className="icon_heart_alt" />
@@ -67,10 +71,11 @@ const CallToActions = ({ products, favourite, favActions, cart, cartActions }) =
                     { }
                 </div>
             </li>
-            <li className="cart-icon"><Link to="/cart">
-                <i className="icon_bag_alt" />
-                <span>{keysArr.length}</span>
-            </Link>
+            <li className="cart-icon">
+                <Link to="/cart">
+                    <i className="icon_bag_alt" />
+                    <span>{keysArr.length}</span>
+                </Link>
                 <div className="cart-hover">
                     {keysArr.length > 0 ? <div>
                         <div className="select-items">
@@ -112,7 +117,7 @@ const CallToActions = ({ products, favourite, favActions, cart, cartActions }) =
                 </div>
             </li>
             <li className="cart-price">₹{cartTotalPrice}</li>
-            
+
         </ul>
     )
 }

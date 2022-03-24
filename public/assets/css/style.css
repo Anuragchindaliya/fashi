@@ -199,7 +199,7 @@ ol {
   padding: 13px 45px 11px;
   cursor: pointer;
 }
-.site-btn:disabled{
+.site-btn:disabled {
   background-color: grey;
   cursor: not-allowed;
   border: 1px solid #000;
@@ -475,7 +475,7 @@ ol {
 }
 
 .inner-header .advanced-search .input-group {
-  width: 72%;
+  /* width: 72%; */
   height: 100%;
 }
 
@@ -3103,9 +3103,6 @@ b.disabled.primary-btn.pd-cart {
 .checkout-form .error {
   display: none;
 }
-input:invalid[focused="true"] + .error {
-  display: block;
-}
 
 .checkout-form input.street-first {
   margin-bottom: 20px;
@@ -4104,6 +4101,9 @@ input:invalid[focused="true"] + .error {
 @media only screen and (min-width: 1200px) and (max-width: 1920px) {
   .inner-header .advanced-search .input-group button {
     right: -14px;
+  }
+  .inner-header .advanced-search .input-group {
+    max-width: 72%;
   }
   .product-item .pi-pic ul li b {
     padding: 16px 12px 12px 11px;

@@ -74,6 +74,13 @@ export const createAccountApi = async (formData) => {
   //   .catch((err) => Promise.reject(err.message))
   //   .then((res) => res);
 };
+export const loginApi = async (formData) => {
+  return await axios({
+    method: "POST",
+    url: "http://localhost/meapi/login.php",
+    data: JSON.stringify(formData),
+  }).then((response) => response.data);
+};
 
 // export const searchProduct = async (query) => {
 //   return await axios

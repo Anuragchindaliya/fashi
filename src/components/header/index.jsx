@@ -88,12 +88,12 @@ const Header = ({ categories: cat, cart, cartActions, products, favourite, favAc
                                 <li><a href="./contact.html">Contact</a></li>
                                 <li><a href="/#">Pages</a>
                                     <ul className="dropdown">
-                                        <li><a href="./blog-details.html">Blog Details</a></li>
+                                        <li><Link to="/account">Account</Link></li>
                                         <li><Link to="/shop">Shopping Cart</Link></li>
                                         <li><Link to="/checkout">Checkout</Link></li>
                                         <li><a href="./faq.html">Faq</a></li>
                                         <li><a href="./register.html">Register</a></li>
-                                        <li><a href="./login.html">Login</a></li>
+                                        <li><Link to="/login">Login</Link></li>
                                     </ul>
                                 </li>
                             </ul>
